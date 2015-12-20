@@ -1,0 +1,703 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  iOS_Development - My Notebooks
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="My Notebooks" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hpmczz.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; My Notebooks</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS_Development.html">iOS_Development</a></li>
+        
+            <li><a href="Objective-C.html">Objective-C</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14505840078720.html">
+                
+                  <h1>AssetsLibrary使用</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h4 id="toc_0">相关类名</h4>
+
+<p>可以理解如下：<br/>
+<ul><br/>
+<li>ALAssetsLibrary是iOS系统中的资料库，使用它可以访问资料库的资源，保存资源到资料库中。</li><br/>
+<li>ALAssetsGroup是资料库中的每一个资源集，可以通过它访问资源集里面的文件，并且能够添加文件到资料库中。</li><br/>
+<li>ALAsset是资源集中的资源文件</li><br/>
+</ul></p>
+
+<h4 id="toc_1">访问资源库代码</h4>
+
+<p>下面的代码片段初始化资源库文件和存放资源集的数组，然后枚举资源库中的资源集，将资源集添加到数组中，以便后面的使用。这里有两个回调block，一个用于枚举资源集的回调，一个用于在访问资源库发生错误时的回调。</p>
+
+<pre><code>//初始化ALAssetsLibrary对象
+if (_assetsLibrary == nil) {
+        _assetsLibrary = [[ALAssetsLibrary alloc] init];
+}
+if (_groups == nil) {
+        _groups = [[NSMutableArray alloc] init];
+} else {
+      [_groups removeAllObjects];
+}
+
+//构造失败回调
+ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error){
+     NSString *errorMessage = nil;
+      switch ([error code]) {
+        case ALAssetsLibraryAccessUserDeniedError:
+        case ALAssetsLibraryAccessGloballyDeniedError:
+            errorMessage = @&quot;The user has declined access to it.&quot;;
+            break;
+        default:
+            errorMessage = @&quot;Reason unkown.&quot;;
+            break;
+    }
+    NSLog(@&quot;%@&quot;, errorMessage);
+};
+
+//构造枚举资源文件回调（可以开启一个线程后台枚举资源文件后，再在主线程刷新界面)
+ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop){
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+        [group setAssetsFilter:onlyPhotosFilter];
+        if ([group numberOfAssets]) {
+            [_groups addObject:group];
+        }
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop){
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+        [group setAssetsFilter:onlyPhotosFilter];
+        if ([group numberOfAssets]) {
+            [_groups addObject:group];
+        }
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    });
+    
+};
+    
+NSUInteger groupTypes = ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos;
+[_assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
+    });
+    
+};
+    
+NSUInteger groupTypes = ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos;
+[_assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
+
+</code></pre>
+
+<h4 id="toc_2">获取资源文件</h4>
+
+<p>下面的代码片段枚举资源集中的资源文件，大致的方式和枚举资源库中的资源集类似，枚举的每个资源文件是一个ALAsset对象，然后将资源文件添加哦到数组中，以便后面代码的使用。</p>
+
+<pre><code>if (!_assets) {
+     _assets = [[NSMutableArray alloc] init];
+} else {
+    [_assets removeAllObjects];
+}
+    
+    //获取资源集中的资源文件,添加到数组中
+ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop){
+    if (result) {
+        [_assets addObject:result];
+    }
+};
+    
+ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+[_assetsGroup setAssetsFilter:onlyPhotosFilter];
+[_assetsGroup enumerateAssetsUsingBlock:assetsEnumerationBlock];
+</code></pre>
+
+<h4 id="toc_3">实现的效果如下</h4>
+
+<p>简单自定义了一个简单的相册，你也可以使用其他的展现方式来展现相册的内容，包括多张图片同时选择等功能</p>
+<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20151003/assets_library_study_image.png">
+<source src="http://www.hpmczz.com/images/20151003/assets_library_study.mov" type="video/mov" />
+<source src="http://www.hpmczz.com/images/20151003/assets_library_study.ogg" type="video/ogg" />
+</video>
+<br/>
+<p><a href="http://www.hpmczz.com/images/20151003/MyImagPicker.zip">完整代码下载地址</a></p>
+
+<p>参考：<a href="https://developer.apple.com/library/ios/samplecode/MyImagePicker/Introduction/Intro.html">https://developer.apple.com/library/ios/samplecode/MyImagePicker/Introduction/Intro.html</a></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/8/20</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14505835784481.html">
+                
+                  <h1>Objective-C单例</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h4 id="toc_0">遇到的问题</h4>
+
+<p>在项目中我写单例一般是这么写的：</p>
+
+<pre><code>@implementation Singleton
+
+static Singleton *_sharedInstace = nil;
+
++ (instancetype)sharedInstance{
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        _sharedInstace = [[Singleton alloc] init];
+    });
+    return _sharedInstace;
+}
+
+- (instancetype)sharedInstance{
+    return [[self class] sharedInstance];
+}   
+</code></pre>
+
+<p>发现的问题：<br/>
+<ul><br/>
+<li>由于没有实现NSCopying协议，对单例子对象调用<code>copy</code>时候，程序崩溃。</li><br/>
+<li>调用<code>alloc</code>时产生了一个新的对象</li><br/>
+</ul><br/>
+如果你已经知道这些潜在的问题，在编写程序的时候稍加注意，这些可能不是问题，但是总是有些奇葩的事情会发生，为了预防这些事情发生时导致的问题，我还是将单例修改了下，更正上述问题的代码如下：</p>
+
+<pre><code>+ (instancetype)sharedInstance{
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        _sharedInstace = [[Singleton alloc] init];
+    });
+    return _sharedInstace;
+}
+
+- (instancetype)sharedInstance{
+    return [[self class] sharedInstance];
+}   
+- (instancetype)copyWithZone:(NSZone *)zone{
+    return [self sharedInstance];
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone{
+    if (!_sharedInstace) {
+        _sharedInstace = [[super allocWithZone:zone] init];
+    }
+    return _sharedInstace;
+}
+</code></pre>
+
+<p>完整的代码<a href="http://www.hpmczz.com/images/20150516/SingletonDemo.zip">下载地址</a></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/5/11</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				  
+          					    <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14505837375542.html">
+                
+                  <h1>Objc内存管理属性修饰符号（一）</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>项目中设置<code>Objective－C Automatic Reference Counting</code>为YES后，项目将开启自动引用计数管理，编译器将帮我们管理引用计数；当然我们也可以对个别文件进行单独设置，对某个文件可以设置<code>-fno-objc-arc</code>后不使用ARC（自动引用计数管理）。在MRC（手动引用计数管理），我们通过给变量发送<code>retainCount</code>消息，得到变量的引用计数；在ARC中，如何能获取变量的引用计数呢?</p>
+
+<h4 id="toc_0">ARC下面打印引用计数</h4>
+
+<h5 id="toc_1">第一种方式</h5>
+
+<pre><code>NSArray *arr = [[NSArray alloc ] initWithObjects:@&quot;hello&quot;,@&quot;world&quot; ,nil];
+CFArrayRef *cfArr = (__bridge CFArrayRef)arr;
+NSLog(@&quot;%ld&quot;, CFGetRetainCount(cfArr));
+</code></pre>
+
+<h5 id="toc_2">第二种方式</h5>
+
+<pre><code>id  obj = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
+NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
+</code></pre>
+
+<p><p>这种方法请在使用函数前<code>extern uintptr_t <u>objc</u>rootRetainCount(id obj)</code>加入这段代码。</pi></p>
+
+<p>突然写了一段代码，如下（ARC开启的情况下）：</p>
+
+<pre><code>id  obj = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
+NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
+</code></pre>
+
+<p>此时的输出是2，那么为什么是2呢？我的想法是<code>arrayWithObjects</code>调用返回的对象是<code>autorelease</code>，而这个对象是需要添加到<code>autoreleasePool</code>中，加到这个pool 中导致引用计数+1，是这样的么？接着把这段代码在MRC下面运行，得到的1，有点吃惊，同样的代码为啥是1；在MRC中运行下面的代码：</p>
+
+<pre><code>id obj = [[[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil] autorelease];
+NSLog(@&quot;retain count: %ld&quot;, _objc_rootRetainCount(obj));
+</code></pre>
+
+<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code><strong>strong</code>有关系的，ARC下变量默认是<code></strong>strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
+
+<pre><code>//MRC 和 ARC下面分别执行
+id obj = [[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
+NSLog(@&quot;%p %ld&quot;, obj, _objc_rootRetainCount(obj));
+id obj1 = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
+NSLog(@&quot;%p %ld&quot;, obj1, _objc_rootRetainCount(obj1));
+</code></pre>
+
+<p>MRC执行结果：</p>
+
+<pre><code>2015-06-12 18:28:40.904 objc-runtime[2206:106079] 0x100111c60 1
+2015-06-12 18:28:40.905 objc-runtime[2206:106079] 0x100200160 1
+</code></pre>
+
+<p>ARC执行结果：</p>
+
+<pre><code>2015-06-12 18:27:53.028 objc-runtime[2194:105732] 0x100111c80 1
+2015-06-12 18:27:53.029 objc-runtime[2194:105732] 0x100300100 2
+</code></pre>
+
+<p>内存思考方式：<br/>
+<ul><br/>
+<li>自己生成的对象(new/alloc/copy/mutableCopy)，自己所持有</li><br/>
+<li>非自己生成的对象，自己也能持有</li><br/>
+<li>自己持有的对象不需要时释放</li><br/>
+<li>非自己持有的对象无法释放</li><br/>
+</ul><br/>
+上面的内存管理思考方式引用于<q>Objective-C高级编程iOS与OSX多线程和内存管理</q>。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
+
+<h4 id="toc_3">一些现象</h4>
+
+<p>第一段代码，先看下列代码:</p>
+
+<pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
+printf(&quot;arr: %ld\n&quot;, _objc_rootRetainCount(arr));
+CFArrayRef cfarr = (__bridge CFArrayRef)arr;
+printf(&quot;arr: %ld\n&quot;,CFGetRetainCount(cfarr));
+{% endhighlight %}
+输出如下:
+
+</code></pre>
+
+<p>arr:2<br/>
+arr:2<br/>
+```</p>
+
+<p>第二段代码，先看下代码：</p>
+
+<pre><code> NSString *str = [NSString stringWithFormat:@&quot;%@, this is some test.&quot;, @&quot;1234568337&quot;];
+CFStringRef cfStr = (__bridge CFStringRef)str;
+printf(&quot;str: %ld\n&quot;, CFGetRetainCount(cfStr));
+printf(&quot;str: %ld\n&quot;, _objc_rootRetainCount(str));
+</code></pre>
+
+<p>输出如下:</p>
+
+<pre><code>str: 2
+str: 1
+</code></pre>
+
+<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code><u>objc</u>rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/4/10</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14505831179769.html">
+                
+                  <h1>UITableView中Cell重用的问题</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h4 id="toc_0">遇到的坑</h4>
+
+<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+
+<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier = @&quot;cell&quot;;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        if (indexPath.row == 0) {
+            cell.backgroundColor = [UIColor redColor];
+        }else if(indexPath.row == 1){
+            cell.backgroundColor = [UIColor cyanColor];
+        }else if(indexPath.row == 2){
+            cell.backgroundColor = [UIColor blueColor];
+        }else{
+            cell.backgroundColor = [UIColor whiteColor];
+        }
+        return cell;
+        
+    }else {
+        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
+    }
+    return cell;
+}
+</code></pre>
+
+<p>上面代码问题很明显，拖动显示如下<br/>
+<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
+<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
+</video><br/>
+<br/><br/>
+<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+
+<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
+
+<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
+</video><br/>
+<br/><br/>
+参考下面的代码：</p>
+
+<pre><code>- (void)_initSubviews{
+    
+    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
+    _msgLb.font = MSGLB_FONT;
+    _msgLb.numberOfLines = 0;
+    [self.contentView addSubview:_msgLb];
+    
+    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _imgView.backgroundColor  = [UIColor grayColor];
+    [self.contentView addSubview:_imgView];
+}
+
+- (void)_relayoutSubviews{
+    CGFloat width = self.st_width - 2 * K_PADDING;
+    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
+    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
+    
+    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
+}
+
+- (void)layoutSubviews{
+//    [super layoutSubviews];
+    [self _relayoutSubviews];
+}
+
+- (void)setModel:(id)model{
+    if (model) {
+        _model = model;
+        
+        Message *msg = _model;
+        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
+        [_imgView sd_setImageWithURL:imgUrl];
+        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
+        _msgLb.text = mesg;
+        
+        [self setNeedsLayout];
+    }
+}
+</code></pre>
+
+<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
+上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
+<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/3/20</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>My Notebooks</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
+        
+            <a href="Objective-C.html"><strong>Objective-C</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14505840078720.html">AssetsLibrary使用</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505835784481.html">Objective-C单例</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505837375542.html">Objc内存管理属性修饰符号（一）</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505831179769.html">UITableView中Cell重用的问题</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </body>
+</html>

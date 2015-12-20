@@ -1,0 +1,360 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  UITableView中Cell重用的问题 - My Notebooks
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="My Notebooks" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hpmczz.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; My Notebooks</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS_Development.html">iOS_Development</a></li>
+        
+            <li><a href="Objective-C.html">Objective-C</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>UITableView中Cell重用的问题</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2015/3/20</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h4 id="toc_0">遇到的坑</h4>
+
+<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+
+<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier = @&quot;cell&quot;;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        if (indexPath.row == 0) {
+            cell.backgroundColor = [UIColor redColor];
+        }else if(indexPath.row == 1){
+            cell.backgroundColor = [UIColor cyanColor];
+        }else if(indexPath.row == 2){
+            cell.backgroundColor = [UIColor blueColor];
+        }else{
+            cell.backgroundColor = [UIColor whiteColor];
+        }
+        return cell;
+        
+    }else {
+        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
+    }
+    return cell;
+}
+</code></pre>
+
+<p>上面代码问题很明显，拖动显示如下<br/>
+<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
+<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
+</video><br/>
+<br/><br/>
+<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+
+<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
+
+<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
+<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
+</video><br/>
+<br/><br/>
+参考下面的代码：</p>
+
+<pre><code>- (void)_initSubviews{
+    
+    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
+    _msgLb.font = MSGLB_FONT;
+    _msgLb.numberOfLines = 0;
+    [self.contentView addSubview:_msgLb];
+    
+    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _imgView.backgroundColor  = [UIColor grayColor];
+    [self.contentView addSubview:_imgView];
+}
+
+- (void)_relayoutSubviews{
+    CGFloat width = self.st_width - 2 * K_PADDING;
+    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
+    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
+    
+    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
+}
+
+- (void)layoutSubviews{
+//    [super layoutSubviews];
+    [self _relayoutSubviews];
+}
+
+- (void)setModel:(id)model{
+    if (model) {
+        _model = model;
+        
+        Message *msg = _model;
+        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
+        [_imgView sd_setImageWithURL:imgUrl];
+        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
+        _msgLb.text = mesg;
+        
+        [self setNeedsLayout];
+    }
+}
+</code></pre>
+
+<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
+上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
+<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14505837375542.html" 
+          title="Previous Post: Objc内存管理属性修饰符号（一）">&laquo; Objc内存管理属性修饰符号（一）</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>My Notebooks</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
+        
+            <a href="Objective-C.html"><strong>Objective-C</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14505840078720.html">AssetsLibrary使用</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505835784481.html">Objective-C单例</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505837375542.html">Objc内存管理属性修饰符号（一）</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14505831179769.html">UITableView中Cell重用的问题</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </body>
+</html>
