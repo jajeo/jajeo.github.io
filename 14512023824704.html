@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Archives - My Notebooks
+  Node.js学习笔记 - My Notebooks
   
   </title>
   
@@ -93,131 +93,86 @@
 
  <script type="text/javascript">
   $(function(){
-    $('#menu_item_archives').addClass('is_active');
+    $('#menu_item_index').addClass('is_active');
   });
 </script>
 <div class="row">
   <div class="large-8 medium-8 columns">
-    <div id="archives-page-wrap">
-        <h1>Archives</h1>
-        <div class="markdown-body archives-wrap">
+      <div class="markdown-body article-wrap">
+       <div class="article">
           
-             
-                <h1>2016</h1>
-            
-            <div class="article">
-              <a class="clearlink" href="14518169924577.html">
-                <h1>mongoose文档翻译 － Schemas（一）</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/1/3</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='JavaScript.html'>JavaScript</a></span>
-                 
-              </div>
-            </div><!-- article -->
+          <h1>Node.js学习笔记</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2015/12/27</span>
 
+          <span>posted in&nbsp;</span> 
           
-             
-                <h1>2015</h1>
-            
-            <div class="article">
-              <a class="clearlink" href="14512023824704.html">
-                <h1>Node.js学习笔记</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/12/27</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='JavaScript.html'>JavaScript</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14505917477642.html">
-                <h1>JavaScript中对象的创建方法</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/12/20</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='JavaScript.html'>JavaScript</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14505840078720.html">
-                <h1>AssetsLibrary使用</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/8/20</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14505835784481.html">
-                <h1>Objective-C单例</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/5/11</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
-                
-                    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14505837375542.html">
-                <h1>Objc内存管理属性修饰符号（一）</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/4/10</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-                
-                    <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14505831179769.html">
-                <h1>UITableView中Cell重用的问题</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2015/3/20</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
+              <span class="posted-in"><a href='JavaScript.html'>JavaScript</a></span>
            
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h4 id="toc_0">normalize函数的基本用法</h4>
+
+<p>normalize函数将不符合规范的路径经过格式化转换为标准路径,解析路径中的.与..外，还能去掉多余的斜杠。</p>
+
+<pre><code>var path = require(&#39;path&#39;);
+var data = path.normalize(&#39;/path//abc//hi/////fdfd&#39;);
+console.log(data);      //输出：/path/abc/hi/fdfd
+</code></pre>
+
+<h4 id="toc_1">join函数的基本用法</h4>
+
+<p>join函数将传入的多个路径拼接为标准路径并将其格式化，返回规范后的路径，避免手工拼接路径字符串的繁琐. 如下示例：</p>
+
+<pre><code>var path = require(&#39;path&#39;);
+var data = path.join(&#39;///you&#39;, &#39;//are&#39;, &#39;/so&#39;, &#39;beautiful&#39;);
+console.log(data); //输出：/you/are/so/beautiful
+</code></pre>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14518169924577.html" 
+          title="Previous Post: mongoose文档翻译 － Schemas（一）">&laquo; mongoose文档翻译 － Schemas（一）</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14505917477642.html" 
+          title="Next Post: JavaScript中对象的创建方法">JavaScript中对象的创建方法 &raquo;</a>
+      
+      </p>
         </div>
       </div>
-  </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
 
  <div class="large-4 medium-4 columns">
   <div class="hide-for-small">
