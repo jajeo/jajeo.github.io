@@ -4,7 +4,7 @@
   <title><![CDATA[My Notebooks]]></title>
   <link href="http://www.hpmczz.com/atom.xml" rel="self"/>
   <link href="http://www.hpmczz.com/"/>
-  <updated>2016-05-19T13:41:51+08:00</updated>
+  <updated>2016-05-19T14:03:06+08:00</updated>
   <id>http://www.hpmczz.com/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -348,13 +348,11 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[]]></title>
-    <link href="http://www.hpmczz.com/14603429181453.html"/>
-    <updated>2016-04-11T10:48:38+08:00</updated>
-    <id>http://www.hpmczz.com/14603429181453.html</id>
+    <title type="html"><![CDATA[Provider]]></title>
+    <link href="http://www.hpmczz.com/14636373951783.html"/>
+    <updated>2016-05-19T13:56:35+08:00</updated>
+    <id>http://www.hpmczz.com/14636373951783.html</id>
     <content type="html"><![CDATA[
-<h1 id="provider">$provide</h1> 
-
 <h4 id="toc_0">$provide - <code>auto</code>模块中的服务</h4>
 
 <p><code>$provide</code>服务为<code>$injector</code>提供许多注册组件的方法。许多函数也暴露给<code>angular.Module</code>。</p>
