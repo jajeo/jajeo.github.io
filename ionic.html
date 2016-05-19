@@ -1,0 +1,575 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  ionic_1.x - My Notebooks
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="My Notebooks" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hpmczz.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; My Notebooks</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Translate.html">Translate</a></li>
+        
+            <li><a href="iOS_Development.html">iOS_Development</a></li>
+        
+            <li><a href="Objective-C.html">Objective-C</a></li>
+        
+            <li><a href="JavaScript.html">JavaScript</a></li>
+        
+            <li><a href="Node.js.html">Node.js</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14595039804934.html">
+                
+                  <h1>使用导航和路由构件应用－第二部分</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>我们使用导航和路由构建了一个基础的应用，如果你已经完成了第一部分，下面我们使用一些高级的功能扩充这个应用。</p>
+
+<p>这个教程我们将维护应用内导航状态来构建一个基础的Todos系统。</p>
+
+<h5 id="toc_0">改变视图</h5>
+
+<p>首先修改Home视图现实一个Todos的列表，我们可以通过改变<code>app.home</code>状态申明来实现：</p>
+
+<pre><code>    $stateProvider
+                    .state(&#39;app.todos&#39;, {
+                        url: &#39;&#39;,
+                        views: {
+                            todos:{
+                                templateUrl: &#39;todos.html&#39;,
+                                controller:&#39;TodosCtrl&#39;
+                            }
+                        }
+                    })
+</code></pre>
+
+<p>然后需要更新模版里面内容以正确的展示新的列表视图:</p>
+
+<pre><code>    &lt;ion-nav-bar class=&quot;bar-positive&quot;&gt;
+    &lt;/ion-nav-bar&gt;
+    
+    &lt;ion-tabs class=&quot;tabs-positive&quot;&gt;
+    
+        &lt;ion-tab icon=&quot;ion-home&quot; ui-sref=&quot;app.todos&quot;&gt;
+            &lt;ion-nav-view name=&quot;todos&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
+        
+        &lt;ion-tab icon=&quot;ion-help&quot; ui-sref=&quot;app.help&quot;&gt;
+            &lt;ion-nav-view name=&quot;help&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
+        
+    &lt;/ion-tabs&gt;
+</code></pre>
+
+<p>当然我们也需要在状态中注册的模版：</p>
+
+<pre><code>    &lt;ion-view title=&quot;Todos&quot;&gt;
+        &lt;ion-content&gt;
+            &lt;ion-list&gt;
+                &lt;ion-item ng-repeat=&quot;todo in todos&quot; class=&quot;item item-icon-right&quot;&gt;
+                    &lt;span ng-class=&quot;{done: todo.done}&quot;&gt; {{ todo.title }} &lt;/span&gt;
+                &lt;/ion-item&gt;
+            &lt;/ion-list&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+</code></pre>
+
+<p>这和第一部分里面使用路由一样，如果你还不太了解，请参考第一部分。</p>
+
+<p>我们有一个列表，但是没有任何数据。现在让我制造一些数据：</p>
+
+<pre><code>    app.controller(&quot;TodosCtrl&quot;, function($scope){
+        $scope.todos = [
+            {title: &quot;Take out the trash&quot;, done: true},
+            {title: &quot;Do laundry&quot;, done: false},
+            {title: &quot;Start cooking dinner&quot;, done: false}
+        ];  
+    });
+</code></pre>
+
+<p>当我们刷新页面的时候，一些todos出现了！这在Angular标准中很常见。我们添加一些简单的样式使todos更加显眼：</p>
+
+<pre><code>    .done {
+        text-decoration: line-through;
+    }
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/4/1</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='ionic.html'>ionic_1.x</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14594927899232.html">
+                
+                  <h1>使用导航和路由构件应用－第一部分</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>这是使用Ionic的导航和路由系列文章的开始。我们从简单的开始，首先创建一个应用可以再tabs之间切换。接着， 我们将使用一个完整的todo应用体验这些功能，并且展示一些Ionic的提供的高级路由功能。</p>
+
+<h5 id="toc_0">为什么需要路由</h5>
+
+<p>当一个应用很小的时候，很容易保存当前事物的状态。只有很少的一些视图，很容易在应用中跟踪和观察数据流的传递。</p>
+
+<p>当应用逐渐变大并且复杂的时候，这些事情变得复杂。作用域从哪里开始？应该渲染哪个模版？从哪里开始渲染模版？怎么嵌入到详细的视图中？如何从一个详情试图中切换tab并且返回？</p>
+
+<p>一些问题涌现出来，需要编写大量模版代码以解决这些问题。实质上，我们可以编写状态机来解决这个问题。这就使Ionic导航和angular-ui-router出现以解决这些问题。</p>
+
+<h5 id="toc_1">开始</h5>
+
+<p>我们从最简单的实现开始：使用Ionic路由显示一个视图。在这个基础上，我们慢慢的实现一个完整应用中更多其他的功能。</p>
+
+<p>显示一个单一的视图HTML代码：</p>
+
+<pre><code>&lt;html ng-app=&quot;myApp&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width&quot;&gt;
+    &lt;title&gt;ToDo&lt;/title&gt;
+    &lt;link href=&quot;lib/ionic/css/ionic.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;lib/ionic/js/ionic.bundle.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ion-nav-view&gt;&lt;/ion-nav-view&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>ion-nav-view</code>是容器。Ionic路由将在代码中查找这个指令以插入模版。<br/>
+<code>ion-nav-view</code>支持层级，叫做视图，和其他的功能，这些功能会在下面的文章中深入讨论。</p>
+
+<blockquote>
+<p><b>注意：</b>如果你熟悉<code>angular-ui-router,ion-nav-view</code>等同于<code>ui-view</code>。在这个基础上，<code>ion-nav-view</code>提供动画，历史和贡多功能。</p>
+</blockquote>
+
+<p>操作HTML简单而有趣：</p>
+
+<pre><code>    var app = angular.module(&#39;myApp&#39;, [&#39;ionic&#39;]);
+    app.config(function($stateProvider, $urlRouterProvider){
+    
+     $urlRouterProvider.otherwise(&#39;/&#39;);
+     $stateProvider
+                    .state(&#39;home&#39;,{
+                                    url: &#39;/&#39;,
+                                    template: &#39;&lt;h1&gt;Hello&lt;/h1&gt;&#39;
+                    });
+    });
+</code></pre>
+
+<p>开始的时候，我们设置一个标准的Angular应用，在我们的config回调中，我们注入<code>$stateProvider</code>和<code>$urlRouterProvider</code>。这些提供了基础回调以配置应用的状态机。</p>
+
+<p>在配置回调中，我们可以开始申明状态。在这里，我们只是声明了一个单一的状态，并且关联一个模版。当这些执行的时候，这个模版就是诸如注入到<code>ion-nav-view</code>位于父模版的位置。</p>
+
+<p>我们也可以使用外部模版以分离代码。</p>
+
+<pre><code>    $stateProvider.state(&#39;home&#39;,{
+        url: &#39;/&#39;,
+        templateUrl: &#39;templates/hello.html&#39;
+    });
+</code></pre>
+
+<p>改变使用<code>templateUrl</code>声明的状态将导致Angular去寻找<code>$templateCache</code>里面的模版。如果它不再缓存中，它将从服务端请求并保存到缓存中。</p>
+
+<blockquote>
+<p>在下面的代码中，我们使用<code>text/ng-template</code>标签和一个页面名字的id。这将会添加模版到模版缓存中，并且保存请求。</p>
+</blockquote>
+
+<h5 id="toc_2">添加一些导航</h5>
+
+<p>只有一种状态的时候路由显得不是那么有用处。让我们修改模版以使用选项卡：</p>
+
+<pre><code>&lt;ion-tabs class=&quot;tabs-positive&quot;&gt;
+    &lt;ion-tab icon=&quot;ion-home&quot; ui-sref=&quot;tabs.home&quot;&gt;
+        &lt;ion-nav-view name=&quot;home&quot;&gt;&lt;/ion-nav-view&gt;
+    &lt;/ion-tab&gt;
+    
+    &lt;ion-tab icon=&quot;ion-help&quot; ui-sref=&quot;tabs.help&quot;&gt;
+         &lt;ion-nav-view name=&quot;help&quot;&gt;&lt;/ion-nav-view&gt;
+    &lt;/ion-tab&gt;
+&lt;/ion-tabs&gt;
+</code></pre>
+
+<p>写了很多，让我们分解一下。</p>
+
+<p>开始，我们使用Ionic的<code>ion-tabs</code>指令。如果你不熟悉，轻参考<a href="http://ionicframework.com/docs/api/directive/ionTabs/">文档</a>。</p>
+
+<p><code>ion-nav-view</code>指令移动到tab指令内部。这里有两件事需要注意。第一个，我们添加了一个<code>name</code>属性到<code>ion-nav-view</code>。现在我们模版中的<code>ion-nav-view</code>在同一级中多出一个层级。没有这些，路由不能确定插入模版的正确位置，导致应用中事件无法触发，产生bug。</p>
+
+<p>第二个，tab关联一个<code>ui-sref</code>指令。这个类似<code>href</code>锚点，指定我们需要转换的状态。</p>
+
+<p>要转换到其他状态，我们需要添加一个，代码如下：</p>
+
+<pre><code>$stateProvider
+                .state(&#39;home&#39;,{
+                                    url: &#39;/&#39;,
+                                    views:{
+                                        home:{
+                                            templateUrl: &#39;home.html&#39;
+                                        }
+                                    }       
+                })
+                
+                .state(&#39;help&#39;,{
+                                    url: &#39;/help&#39;,
+                                    views:{
+                                        help:{
+                                            templateUrl: &#39;help.html&#39;
+                                        }
+                                 }
+               });
+</code></pre>
+
+<p>命名的视图通过状态申明轻松改变。我们添加一个<code>views</code>的键值，这个键对应的值是所有子视图的对象。我们使用带有相同参数的对象申明同一个状态，否则申明不同的状态。更多信息请参考<a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">angular-ui-router文档</a></p>
+
+<p>不要忘记我们的模版，让我们在<code>body</code>的末尾添加如下代码:</p>
+
+<pre><code>&lt;script type=&quot;text/ng-template&quot; id=&quot;home.html&quot;&gt;
+    &lt;ion-view title=&quot;Home&quot;&gt;
+        &lt;ion-content class=&quot;padding&quot;&gt;
+            &lt;h2&gt; Home Page &lt;/h2&gt;
+            &lt;p&gt;Here&#39;s the main route for the app.&lt;/p&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+&lt;/script&gt;
+
+&lt;script type=&quot;text/ng-template&quot; id=&quot;help.html&quot;&gt;
+    &lt;ion-view title=&quot;Help&quot;&gt;
+        &lt;ion-content class=&quot;padding&quot;&gt;
+            &lt;h2&gt;Using the app&lt;/h2&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?
+            &lt;/p&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+&lt;/script&gt;
+
+</code></pre>
+
+<p>到了这里，我们有一个简单的带tab的应用。在导航栈中拥有一个头部视图是非常不错的，并且可以对应更新头部，让我们添加头部。</p>
+
+<h5 id="toc_3">添加头部</h5>
+
+<p>添加一个头部视图是很简单的。在<code>ion-tabs</code>指令前面添加如下代码：</p>
+
+<pre><code>    &lt;ion-nav-bar class=&quot;bar-positive&quot;&gt;&lt;/ion-nav-bar&gt;
+</code></pre>
+
+<p>现在运行这个应用，我们可以看到屏幕顶部的头部视图，并且有正确的标题。标题由<code>ion-view</code>的<code>title</code>指定。</p>
+
+<h5 id="toc_4">总结</h5>
+
+<p>我们由一个基础的应用，这个应用的视图由指定的状态机控制。在第二节中，我们将添加一些动态的内容到视图中，并且创建一个列表－导航详情层级，继续学习吧。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/4/1</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='ionic.html'>ionic_1.x</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>My Notebooks</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Translate.html"><strong>Translate</strong></a>
+        
+            <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
+        
+            <a href="Objective-C.html"><strong>Objective-C</strong></a>
+        
+            <a href="JavaScript.html"><strong>JavaScript</strong></a>
+        
+            <a href="Node.js.html"><strong>Node.js</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="angular_guide_template.html">模版</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14607031159401.html">概览</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14605135696117.html">Dependency Injection(依赖注入)</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="BootStrap.html">BootStrap</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14603429181453.html"></a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

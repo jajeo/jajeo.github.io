@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  UITableView中Cell重用的问题 - My Notebooks
+  BootStrap - My Notebooks
   
   </title>
   
@@ -105,14 +105,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>UITableView中Cell重用的问题</h1>
+          <h1>BootStrap</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2015/3/20</span>
+          <span class="date">2016/4/12</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+              <span class="posted-in"><a href='AngularJS.html'>AngularJS_1.x</a></span>
            
          
           <span class="comments">
@@ -125,93 +125,94 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <h4 id="toc_0">遇到的坑</h4>
+      <p>这篇文章说明Angular初始化过程以及怎么样手动初始化Angular。</p>
 
-<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+<h4 id="toc_0">Angular <code>&lt;script&gt;</code> 标签</h4>
 
-<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @&quot;cell&quot;;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor redColor];
-        }else if(indexPath.row == 1){
-            cell.backgroundColor = [UIColor cyanColor];
-        }else if(indexPath.row == 2){
-            cell.backgroundColor = [UIColor blueColor];
-        }else{
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        return cell;
-        
-    }else {
-        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
-    }
-    return cell;
-}
+<p>这个例子演示了推荐的初始化Angular的方法，我们称为自动初始化。</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html xmlns:ng=&quot;http://angularjs.org&quot; ng-app&gt;
+    &lt;body&gt;
+    ...
+    &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
-<p>上面代码问题很明显，拖动显示如下<br/>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+<ol>
+<li><code>script</code>标签放在页面的最末尾。把<code>script</code>标签放在页面的后面可以改善应用加载时间，这是因为HTML加载不会被<code>angular.js</code>的加载所阻塞。你可以从<a href="http://code.angularjs.org">http://code.angularjs.org</a>获取源码。请不要将你的生产环境代码连接到这个URL，因为它会使你的站点出现安全漏洞。以实验为目的可以连接到这个URL。
+<ul>
+    <li>开发和调试过程中使用<code>angular-[version].js</code>以便于阅读</li>
+    <li>使用<code>angular-[version].min.js</code>以便获取一个压缩并且打乱的文件，适合在生产环境中使用。</li>
+</ul>
+</li>
+<li>将<code>ng-app</code>放置在应用程序的根节点，如果你想angular自动引导应用通常放到<code>html</code>标签中。</li>
+<li>如果你想使用旧的指令<code>ng:</code>，然后在<code>html</code>包含xml-namespace以适配IE。（这个是由于历史原因，我们已经不推荐使用<code>ng:</code>）</li>
+</ol>
 
-<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
+<h4 id="toc_1">自动初始化</h4>
 
-<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-参考下面的代码：</p>
+<p>Angular通过<code>DOMContentLoaded</code>事件自动初始化或者是<code>document.readyState</code>设置为<code>&#39;complete&#39;</code>时执行<code>angular.js</code>脚本。这时Angular查找指定应用程序根的<code>ngApp</code>指令。如果<code>ngApp</code>指令找到了，Angular将做如下操作：<br/>
+<ul><br/>
+    <li>加载<a href="./angular_module.html">module</a>关联的指令</li><br/>
+    <li>创建应用的<a href="./angular_injector.html">injector</a></li><br/>
+    <li>把<code>ngApp</code>当成是根编译DOM。这个也允许你去只是把它当成是Angular应用DOM的一部分。</li><br/>
+</ul></p>
 
-<pre><code>- (void)_initSubviews{
-    
-    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
-    _msgLb.font = MSGLB_FONT;
-    _msgLb.numberOfLines = 0;
-    [self.contentView addSubview:_msgLb];
-    
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgView.backgroundColor  = [UIColor grayColor];
-    [self.contentView addSubview:_imgView];
-}
+<p><img src="media/14604503692547/concepts-startup.png" alt="concepts-startup"/></p>
 
-- (void)_relayoutSubviews{
-    CGFloat width = self.st_width - 2 * K_PADDING;
-    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
-    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
-    
-    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
-}
-
-- (void)layoutSubviews{
-//    [super layoutSubviews];
-    [self _relayoutSubviews];
-}
-
-- (void)setModel:(id)model{
-    if (model) {
-        _model = model;
-        
-        Message *msg = _model;
-        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
-        [_imgView sd_setImageWithURL:imgUrl];
-        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
-        _msgLb.text = mesg;
-        
-        [self setNeedsLayout];
-    }
-}
+<pre><code>&lt;!doctype html&gt;
+&lt;html ng-app=&quot;optionalModuleName&quot;&gt;
+    &lt;body&gt;
+        I can add: {{ 1+2 }}.
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
-<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
-上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
-<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
+<p>作为最佳实践，请考虑添加<code>ng-strict-di</code>指令到同一个元素中，像<code>ng-app</code>一样：</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html ng-app=&quot;optionalModuleName&quot; ng-strict-di&gt;
+    &lt;body&gt;
+        I can add {{ 1+ 2}}.
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>这些将保证应用中所有的服务都有正确的注解。请参考</p>
+
+<h4 id="toc_2">手动初始化</h4>
+
+<p>如果你需要对初始化进度做更多的控制，你可以使用手动引导方法。当你需要使用包含脚本加载器或者需要在Angular编译页面之前执行一些操作。</p>
+
+<p>下面是一个手动加载Angular的例子：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Manual Bootstrap&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        angular.module(&#39;myApp&#39;, [])
+        .controller(&#39;MyController&#39;, [&#39;$scope&#39;, function($scope){
+            $scope.greetMe = &#39;World&#39;;
+        }])
+        
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div ng-controller=&quot;MyController&quot;&gt;
+    {{ greetMe }}
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
       </div>
 
@@ -219,13 +220,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14505837375542.html" 
-          title="Previous Post: Objc内存管理属性修饰符号（一）">&laquo; Objc内存管理属性修饰符号（一）</a>
+          <a href="14605135696117.html" 
+          title="Previous Post: Dependency Injection(依赖注入)">&laquo; Dependency Injection(依赖注入)</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14603429181453.html" 
+          title="Next Post: "> &raquo;</a>
       
       </p>
         </div>

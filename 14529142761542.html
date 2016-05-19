@@ -1,0 +1,476 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  JSContext 参考 - My Notebooks
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="My Notebooks" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hpmczz.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; My Notebooks</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Translate.html">Translate</a></li>
+        
+            <li><a href="iOS_Development.html">iOS_Development</a></li>
+        
+            <li><a href="Objective-C.html">Objective-C</a></li>
+        
+            <li><a href="JavaScript.html">JavaScript</a></li>
+        
+            <li><a href="Node.js.html">Node.js</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>JSContext 参考</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/1/16</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Translate.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h3 id="toc_0">JScontext</h3>
+
+<p>JSContext类继承于NSObject，iOS7以后在JavaScriptCore框架内声明，使用时需要导入<code>JavaScriptCore.framework</code>框架，并添加以下代码：</p>
+
+<pre><code>#import &lt;JavaScriptCore/JavaScriptCore.h&gt;
+</code></pre>
+
+<p><code>JSContext</code>对象表现为一个JavaScript执行环境。你可以在Objective-c或者Swift中创建并且使用JavaScript执行环境去执行JavaScript脚本，访问JavaScript中定义的值或者做一些计算，创建JavaScript中的原生对象，方法或者函数。</p>
+
+<h4 id="toc_1">创建JavaScript执行环境</h4>
+
+<pre><code>- (instancetype)init
+</code></pre>
+
+<p>这个初始化方法创建一个JavaScript执行环境并且伴随着一个新的、独立的虚拟机（一个<code>JSVirtualMachine</code>对象）。</p>
+
+<p>在不同的虚拟机内的执行环境不能传递JavaScript值（JSValue对象）。要创建一个共享虚拟机的执行环境，请使用<code>initWithVirtualMachine:</code>方法。</p>
+
+<pre><code>- (instancetype)initWithVirtualMachine:
+</code></pre>
+
+<p>指定一个虚拟机的方式创建一个新的JavaScript执行环境。</p>
+
+<p>每一个执行环境默认都有一个独立的虚拟机（一个<code>JSVirtualMachine</code>对象）。在不同的虚拟机内的执行环境不能传递JavaScript值。，使用同一个虚拟机创建的不同的JavaScript执行环境，这些执行环境里可以相互传递<code>JSVaule</code>对象。</p>
+
+<h4 id="toc_2">执行脚本</h4>
+
+<pre><code>- (JSValue *)evaluateScript:(NSString *)script
+</code></pre>
+
+<p>在任何地址执行脚本并且添加函数和方法定义到执行环境的全局对象中。放回脚本最后产生的值。脚本执行可能返回JavaScript中的<code>undefined</code>对象。</p>
+
+<pre><code>- (JSValue *)evaluateScript:(NSString *)script
+          withSourceURL:(NSURL *)sourceURL
+</code></pre>
+
+<p>这个方法iOS8.0后可以使用，<code>sourceURL</code>仅仅是提供一些信息，调试过程中异常报告中可能会使用到这个URL。</p>
+
+<h4 id="toc_3">在运行环境中检查回调状态</h4>
+
+<pre><code>+ (JSContext *)currentContext
+</code></pre>
+
+<p>返回当前执行JavaScript代码的执行环境。如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript代码的<code>JSContext</code>对象。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<pre><code>+ (JSValue *)currentThis
+</code></pre>
+
+<p>返回当前执行的JavaScrip代码中<code>this</code>关键字的值。如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript代码的<code>this</code>关键字表现为<code>JSValue</code>对象的值。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<pre><code>+ (NSArray *)currentArguments
+</code></pre>
+
+<p>返回当前回调的参数，如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript回调的参数，表现为包含<code>JSValue</code>对象的值的数组。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<h4 id="toc_4">JavaScript全局状态</h4>
+
+<pre><code>@property(readonly, strong) JSValue *globalObject
+</code></pre>
+
+<p>执行环境关联的JavaScript全局对象（只读）。</p>
+
+<p>在web浏览器中，JavaScript执行环境的全局对象是浏览器窗口对象（JavaScript的<code>window</code>对象）。在web浏览器以外使用，执行缓降的全局对象扮演着类似的角色，区分不同执行环境中的JavaScript命名空间。在脚本中的全局变量可以使用全局对象的下标字段方法。你可以使用这个<code>JSVaule</code>对象访问它们。或者通过<a href="#subscripts">使用下标访问JavaScript全局状态</a></p>
+
+<p>在原始的WebKit中JSContext实例，这个方法返回一个<code>windowProxy</code>对象的引用。</p>
+
+<pre><code>@property(strong) JSValue *exception
+</code></pre>
+
+<p>执行脚本中抛出的JavaScript异常</p>
+
+<p>在执行从JavaScript中的回调Objective-C或者Swift block或者方法中，执行环境会保留这个属性之前的值然后将它的值设置为<code>nil</code> 。等代回调执行完成，执行环境读取新的<code>exception</code>属性值，如果这个值不为空，执行环境将这个值当做异常抛出当做JavaScript中回调的结果。当读取到这个属性（可能抛出一个JavaScript异常），执行环境将恢复这个属性的值。</p>
+
+<pre><code>默认上说，JavaScriptCore将任何捕获到的异常值赋值给这个属性。所以你可以检查这个属性值了解JavaScript函数调用过程中产生的异常。要改变默认的异常处理，使用`exceptionHandler`属性。
+
+ @property(copy) void (^exceptionHandler)( JSContext *context, JSValue *exception)
+</code></pre>
+
+<p>当执行JavaScript脚本的时抛出异常时的回调。<code>context</code>异常的原始执行环境。<code>exception</code>JavaScript抛出的异常。</p>
+
+<p>异常处理回调储存的默认值<code>exception</code>参数值到执行环境的<code>exception</code>属性中。默认的行为，JavaScript中的回调发生异常时默认的行为是抛出异常。将这个值设置成nil将忽略异常。</p>
+
+<pre><code>@property(readonly, strong) JSVirtualMachine *virtualMachine
+</code></pre>
+
+<p>执行环境所属的JavaScript虚拟机（只读）</p>
+
+<p>创建一个指定虚拟机的执行环境，以允许JavaScript值在不同的，共享同一个虚拟机的执行环境中传递，使用<code>initWithVirtualMachine:</code>初始化方法。</p>
+
+<pre><code>@property(copy) NSString *name
+</code></pre>
+
+<p>一个描述执行环境的名字。为了远程调试时也提供执行环境的名字。iOS8之后方可使用。</p>
+
+<p><h4 id="subscripts"> 使用下标访问JavaScript全局状态</h4></p>
+
+<pre><code>- (JSValue *)objectForKeyedSubscript:(id)key
+</code></pre>
+
+<p>返回在执行环境全局对象中指定JavaScript属性的值，支持下标的写法。<code>key</code>执行环境全局对象中JavaScript属性的名字。</p>
+
+<p>这个方法首先用<code>key</code>参数中构造一个<code>JSValue</code>对象，然后使用这个对象在JavaScript执行环境全局对象中寻找属性的名字。</p>
+
+<pre><code>- (void)setObject:(id)object
+forKeyedSubscript:(NSObject&lt;NSCopying&gt; *)key
+</code></pre>
+
+<p>设置执行环境的全局对象指定属性的值，支持下标写法。<code>object</code>是需要设置JavaScript属性的值，<code>key</code>是在全局JavaScript对象中属性的名字。</p>
+
+<p>这个方法首先用<code>key</code>参数中构造一个<code>JSValue</code>对象，然后使用这个对象在JavaScript执行环境全局对象中设置属性的值。</p>
+
+<p>使用这个方法（或者Objective－C下标语法）以桥接JavaScript中的原生的对象或者参数。</p>
+
+<p>举个例子， 下面的代码使用Objective-C闭包创建了一个JavaScript函数：</p>
+
+<pre><code>JSContext *context = [[JSContext alloc] init];
+context[@&quot;makeNSColor&quot;] = ^(NSDictionary *rgb){
+    NSNumber *red = rgb[@&quot;red&quot;];
+    float r = red.floatValue;
+    red = rgb[@&quot;green&quot;];
+    float g = red.floatValue;
+    red = rgb[@&quot;blue&quot;];
+    float b = red.floatValue;
+    return [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];
+};
+</code></pre>
+
+<h4 id="toc_5">使用C JavaScript API</h4>
+
+<pre><code>@property(readonly) JSGlobalContextRef JSGlobalContextRef
+</code></pre>
+
+<p>返回JavaScript执行环境的C表现形式，详细请参考｀<code>JSContextRef.h</code>。</p>
+
+<pre><code>+ (JSContext *)contextWithJSGlobalContextRef:(JSGlobalContextRef)jsGlobalContextRef
+</code></pre>
+
+<p>从一个等价的C表现形式的JavaScript执行环境中创建一个JavaScript执行环境对象。返回JavaScript执行环境对象表现为同一个执行环境。更多信息请参考<code>JSContextRef.h</code>。</p>
+
+<p>原文地址：<a href="https://developer.apple.com/library/ios/documentation/JavaScriptCore/Reference/JSContext_Ref/index.html">https://developer.apple.com/library/ios/documentation/JavaScriptCore/Reference/JSContext_Ref/index.html</a></p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14594927899232.html" 
+          title="Previous Post: 使用导航和路由构件应用－第一部分">&laquo; 使用导航和路由构件应用－第一部分</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14527796732409.html" 
+          title="Next Post: js与OC互相调用的问题">js与OC互相调用的问题 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>My Notebooks</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Translate.html"><strong>Translate</strong></a>
+        
+            <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
+        
+            <a href="Objective-C.html"><strong>Objective-C</strong></a>
+        
+            <a href="JavaScript.html"><strong>JavaScript</strong></a>
+        
+            <a href="Node.js.html"><strong>Node.js</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="angular_guide_template.html">模版</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14607031159401.html">概览</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14605135696117.html">Dependency Injection(依赖注入)</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="BootStrap.html">BootStrap</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14603429181453.html"></a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

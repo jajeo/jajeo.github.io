@@ -74,11 +74,15 @@
     <li><label>Categories</label></li>
 
         
+            <li><a href="Translate.html">Translate</a></li>
+        
             <li><a href="iOS_Development.html">iOS_Development</a></li>
         
             <li><a href="Objective-C.html">Objective-C</a></li>
         
             <li><a href="JavaScript.html">JavaScript</a></li>
+        
+            <li><a href="Node.js.html">Node.js</a></li>
          
 
       </ul>
@@ -100,6 +104,223 @@
 	<div class="large-8 medium-8 columns">
 		<div class="markdown-body home-categories">
 		
+			<div class="article">
+                <a class="clearlink" href="14527796732409.html">
+                
+                  <h1>js与OC互相调用的问题</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h4 id="toc_0">js 调用 OC 中的一个方法 (一)</h4>
+
+<p>html代码如下：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p onclick=&quot;myalert(&#39;aaaa&#39;);&quot;&gt;点击&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>上面这段html代码中没有JS实现<code>myalert</code>方法，需要客户端实现<code>myalert</code>方法，以实现js中调用OC的一段代码，iOS7后导入<code>JavaScriptCore.framework</code>，然后在webview代理方法<code>webViewDidFinishLoad:</code>方法中实现如下，即可在当前js执行环境中注册一个<code>myalert</code>的方法。</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+context[@&quot;myalert&quot;] = ^(){
+   NSArray *args = [JSContext currentArguments];
+   for (NSString *arg in args) {
+       NSLog(@&quot;%@&quot;, arg);
+   }
+};
+}
+</code></pre>
+
+<h4 id="toc_1">js 调用 OC 中的一个方法（二）</h4>
+
+<p>html代码如下：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p onclick=&quot;myobject.myalert(&#39;aaaa&#39;);&quot;&gt;点击&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>这里的点击事件需要调用一个对象<code>myobject</code>的<code>myalert</code>方法，而这个<code>myobject</code>对象并没有js实现，于是我们需要实现<code>myobjct</code>对象，然后再指定<code>myobject</code>的<code>myalert</code>方法，在当前执行环境中添加一个对象，并且为该对象注册方法，代码如下：</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+    JSValue *value = [JSValue valueWithNewObjectInContext:context];
+    context[@&quot;myobject&quot;] = value;
+    value[@&quot;myalert&quot;] = ^(){
+        NSArray *args = [JSContext currentArguments];
+        for (NSString *arg in args) {
+            NSLog(@&quot;%@&quot;, arg);
+        }
+    };
+    }
+</code></pre>
+
+<blockquote>
+<p>注意： 注册对象和方法不一定是需要在<code>webViewDidFinishLoad</code>代理中实现，根据业务需要也可以在<code>webViewDidStartLoad</code>（window.onload()事件）也可以实现，在哪里实现取决于业务逻辑需求。上面的例子中点击事件是加载完成后点击触发事件，所以在这两个代理中其中任意一个实现即可。</p>
+</blockquote>
+
+<h4 id="toc_2">js 调用 OC 中的一个方法（三）</h4>
+
+<p>通过JSExport协议实现</p>
+
+<h4 id="toc_3">OC调用js代码(一)</h4>
+
+<p>在webview加载开始和结束时调用一个alert，代码如下</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+[webView stringByEvaluatingJavaScriptFromString:@&quot;alert(&#39;结束加载&#39;);&quot;];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+   [webView stringByEvaluatingJavaScriptFromString:@&quot;alert(&#39;开始加载&#39;);&quot;];
+}
+</code></pre>
+
+<p>OC调用js代码(二)</p>
+
+<p>通过js执行环境调用js代码，代码片段如下：</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+[context evaluateScript:@&quot;alert(&#39;hello world&#39;);&quot;];
+}
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/1/14</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14523982237123.html">
+                
+                  <h1>NSURLConnection 和 NSURLSession</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<blockquote>
+<p>以下请真机运行，测试环境iOS9.1</p>
+</blockquote>
+
+<h4 id="toc_0">后台下载</h4>
+
+<h5 id="toc_1">NSURLConnection</h5>
+
+<p>使用<code>NSURLConnection</code>执行下载任务时，由于下载文件可能比较大，一般采取写入本地文件的办法，否则可能会大量的占用内存，这时就需要实现其数据代理方法。</p>
+
+<p>当程序进入后台时，下载任务会停止，若应用在请求超时时间内唤醒下载任务可继续（在网络可用的情况下，不考虑网络异常），否则唤醒应用时调用代理方法<code>connection: didFailWithError:</code>。</p>
+
+<blockquote>
+<p>默认的<code>NSURLConnection</code>代理方法调用是在<code>NSURLConnection</code>发送<code>start</code>消息的线程上调用的。</p>
+</blockquote>
+
+<h5 id="toc_2">NSURLSession</h5>
+
+<p>请点击下载代码。</p>
+
+<p>使用<code>NSURLSession</code>执行下载任务时， 程序进入后台，下载任务不会停止，会一直执行直到下载完成为止。后台下载完成后会依次调用代理方法：<br/>
+<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>,<br/>
+<code>URLSession:task:didCompleteWithError:</code>，和<code>URLSessionDidFinishEventsForBackgroundURLSession</code>。下载出错时会调用<code>URLSession:task:didCompleteWithError:</code>。即使程序崩溃，下一次进入程序时会自动调用<code>URLSession:task:didCompleteWithError:</code>。</p>
+
+<blockquote>
+<p>后台下载完成时，还会调用UIApplication的代理方法：<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>。</p>
+
+<p>如果程序在下载完成前返回前台则只会调用<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>和<code>URLSession:task:didCompleteWithError:</code>方法。</p>
+
+<p>对于多个下载任务在设置session配置对象的时候请设置不同的唯一标示，如果设置相同的唯一标示，结果时未知的。</p>
+</blockquote>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/1/10</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14520027761309.html">
+                
+                  <h1>UIButton Insets相关</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/1/5</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
 			<div class="article">
                 <a class="clearlink" href="14505840078720.html">
                 
@@ -360,7 +581,7 @@ NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
 NSLog(@&quot;retain count: %ld&quot;, _objc_rootRetainCount(obj));
 </code></pre>
 
-<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code><strong>strong</code>有关系的，ARC下变量默认是<code></strong>strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
+<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code>__strong</code>有关系的，ARC下变量默认是<code>__strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
 
 <pre><code>//MRC 和 ARC下面分别执行
 id obj = [[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
@@ -388,7 +609,7 @@ NSLog(@&quot;%p %ld&quot;, obj1, _objc_rootRetainCount(obj1));
 <li>自己持有的对象不需要时释放</li><br/>
 <li>非自己持有的对象无法释放</li><br/>
 </ul><br/>
-上面的内存管理思考方式引用于<q>Objective-C高级编程iOS与OSX多线程和内存管理</q>。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
+上面的内存管理思考方式引用于&quot;Objective-C高级编程iOS与OSX多线程和内存管理&quot;。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
 
 <h4 id="toc_3">一些现象</h4>
 
@@ -421,7 +642,7 @@ printf(&quot;str: %ld\n&quot;, _objc_rootRetainCount(str));
 str: 1
 </code></pre>
 
-<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code><u>objc</u>rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
+<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code>_objc_rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
 
                         
                       </div>
@@ -433,9 +654,9 @@ str: 1
                     <span class="date">2015/4/10</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-          				  
           					    <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
+          				  
+          					    <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -616,11 +837,15 @@ str: 1
 
       	<p class="cat-list">
         
+            <a href="Translate.html"><strong>Translate</strong></a>
+        
             <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
         
             <a href="Objective-C.html"><strong>Objective-C</strong></a>
         
             <a href="JavaScript.html"><strong>JavaScript</strong></a>
+        
+            <a href="Node.js.html"><strong>Node.js</strong></a>
          
         </p>
 
@@ -637,33 +862,59 @@ str: 1
 	      
 		      
 			      <li class="post">
-			        <a href="14518169924577.html">mongoose文档翻译 － Schemas（一）</a>
+			        <a href="angular_guide_template.html">模版</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14512023824704.html">Node.js学习笔记</a>
+			        <a href="14607031159401.html">概览</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505917477642.html">JavaScript中对象的创建方法</a>
+			        <a href="14605135696117.html">Dependency Injection(依赖注入)</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505840078720.html">AssetsLibrary使用</a>
+			        <a href="BootStrap.html">BootStrap</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505835784481.html">Objective-C单例</a>
+			        <a href="14603429181453.html"></a>
 			      </li>
 		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
 		  
 		      
 		  
@@ -711,7 +962,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
     </script>
 
     <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
 
   </body>

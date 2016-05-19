@@ -1,0 +1,479 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  URL Session编程指南 - 简介 - My Notebooks
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="My Notebooks" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hpmczz.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; My Notebooks</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Translate.html">Translate</a></li>
+        
+            <li><a href="iOS_Development.html">iOS_Development</a></li>
+        
+            <li><a href="Objective-C.html">Objective-C</a></li>
+        
+            <li><a href="JavaScript.html">JavaScript</a></li>
+        
+            <li><a href="Node.js.html">Node.js</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>URL Session编程指南 - 简介</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/1/7</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Translate.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <blockquote>
+<p>之前一直是使用NSURLConnection用得比较多，NSURLSesion是跟随iOS7一起出来的，虽说现在网络请求基本上是使用AFNetworking，但了解下其基本的使用还是有必要的。于是决定翻译下这篇文档，加深自己对这一块的了解。</p>
+</blockquote>
+
+<h4 id="toc_0">关于URL加载系统（URL Loading System）</h4>
+
+<p>这篇指南描述了基础的框架类，这些类可用于跟URLs交互和使用标准互联网协议跟服务器通讯。谈及到的类被称为URL加载系统。</p>
+
+<p>URL加载系统是<br/>
+一些类和协议的集合，你可以在app中使用这些类和协议<br/>
+访问URL引用的内容。<code>NSURL</code>是这个技术的核心，你可以在app使用它来维护它们引用的资源。</p>
+
+<p>作为支撑，Foundation框架提供了一个丰富的类集合，你可以使用这些类加载URL的内容，上传数据到服务器，管理cookie的存储，控制响应缓存，处理证书和在app中使用指定的方法做身份认证，并且可以自定义协议扩展。</p>
+
+<p>URL加载系统支持使用以下协议访问资源：</p>
+
+<ul>
+<li>  文件传输协议（ftp://)</li>
+<li>超文本传输协议（http://)</li>
+<li>加密超文本传输协议（https://)</li>
+<li>本地文件URLs（file:///)</li>
+<li>数据URLs（data://)</li>
+</ul>
+
+<p>显然，使用用户系统设置提供的代理服务器和SOCKS网关也是支持的。</p>
+
+<blockquote>
+<p><b>重要：</b> 作为URL加载系统的附加功能，OSX和iOS提供APIs以打开其它应用中URLs，例如Safri。这些APIs的描述并不在本文档中。</p>
+
+<p>想要了解更多OSX中的启动服务，请阅读<i>Launch Services Programming Guide</i></p>
+
+<p>想要了解更多关于OSX中<code>NSWorkSpace</code>类的<code>openURL:</code>方法，请阅读<i>NSWorkSpace Class Refrence</i></p>
+
+<p>想要了解更多关于iOS中<code>UIApplication</code>类的<code>openURL:</code>方法，请阅读<i>UIApplication Class Refrence</i></p>
+</blockquote>
+
+<h4 id="toc_1">概览</h4>
+
+<p>URL加载系统包含加载URLs的类和一些重要的修改URL加载类行为的帮助类。主要帮助类分为五类：协议支持，认证和证书，cookie存储，配置管理，缓存管理。<br/>
+<img src="media/14521763773322/nsobject_hierarchy_2x.png" alt="nsobject_hierarchy_2x"/></p>
+
+<h4 id="toc_2">URL加载</h4>
+
+<p>URL加载系统中最常用的类允许你的应用从一个URL源获取内容。你可以用多种方式获取类容，取决于应用需求。API版本的选择取决于OS X或iOS上你的应用支持的版本，或者是你想保存数据到文件或只是保存数据到内存块中：</p>
+
+<ul>
+<li>  在iOS7和OS X v10.9之后，<code>NSURLSession</code>是执行URL请求编码时首选的API。</li>
+<li>由于一些软件必须支持先前版本的 OS X， 你可以使用<code>NSURLDowload</code>去下载URL的内容保存到磁盘的文件上。</li>
+<li>由于软件必须支持先前版本的iOS或OS X，你可以使用<code>NSURLConnection</code>去下载URL内容到内存中。稍后如果需要也可以保存内存中的数据到磁盘中。</li>
+</ul>
+
+<p>具体使用哪个方法去取决于你想获取数据是保存到内存还是下载保存到磁盘中。</p>
+
+<h5 id="toc_3">获取数据（内存中）</h5>
+
+<p>有两种获取URL数据的基本方法：</p>
+
+<ul>
+<li>  简单的请求，使用<code>NSURLSession</code>API去直接获取一个<code>NSURL</code>对象的内容，<code>NSData</code>或者磁盘上的文件接收数据。</li>
+<li>复杂的请求－上传数据请求，举个例子－提供一个<code>NSURLRequest</code>对象（或者它的可变子类，<code>NSMutableURLRequest</code>）给<code>NSURLSession</code>或者<code>NSURLConnection</code>。</li>
+</ul>
+
+<p>不管使用哪种方法，获取响应数据有如下两种方法：</p>
+
+<ul>
+<li>  提供一个完成处理回调block。当完成从服务器接收数据时URL加载类将调用这个回调函数。</li>
+<li>提供一个代理。当从源接收数据时会定期的调用URL加载类提供代理方法。如果需要，你需要将接收到的数据追加到一起以组成完整的数据。</li>
+</ul>
+
+<p>对于数据本身而言，URL加载类给代理方法或者回调block提供一个响应对象，这个响应对象封装了请求的元响应头数据，例如MIME类型和响应内容的长度。</p>
+
+<h5 id="toc_4">下载内容到文件</h5>
+
+<p>有两种基础的方法下载URL的内容到文件中：</p>
+
+<ul>
+<li>  简单的请求，使用<code>NSURLSession</code>API去直接获取一个<code>NSURL</code>对象的内容，<code>NSData</code>或者磁盘上的文件接收数据。</li>
+<li>复杂的请求－上传数据请求，举个例子－提供一个<code>NSURLRequest</code>对象（或者它的可变子类，<code>NSMutableURLRequest</code>）给<code>NSURLSession</code>或者<code>NSURLDownload</code>。</li>
+</ul>
+
+<p><code>NSURLSession</code>类相对于<code>NSURLDownload</code>有两个明显的优点：在iOS中可以使用，当程序暂停，终止或者崩溃时可以在后台继续下载。</p>
+
+<blockquote>
+<p><code>NSURLDownload</code>或者<code>NSURLSession</code>初始化的下载实例不会缓存数据。如果你需要缓存结果，需要使用<code>NSURLConnection</code>或者<code>NSURLSession</code>并且将数据写到磁盘中。</p>
+</blockquote>
+
+<h5 id="toc_5">帮助方法</h5>
+
+<p>URL加载系统使用两个辅助类提供附加元数据功能－一个对于请求（<code>NSURLRequest</code>）另一个是服务器响应(<code>NSURLResponse</code>）。</p>
+
+<blockquote>
+<p>当客户端应用使用<code>NSMutableURLRequest</code>的实例初始化一个连接或者下载，对这个请求将执行深拷贝。下载初始化后改变初始化请求没有任何影响。</p>
+</blockquote>
+
+<p>一些协议支持协议内指定的属性。举个例子，HTTP协议给<code>NSURLRequst</code>添加一些方法以返回HTTP请求体，请求头，和传输方法。给<code>NSMutableURLRequest</code>添加一些设置这些值的方法。</p>
+
+<p>文档的后面将做一些详细的介绍。</p>
+
+<h5 id="toc_6">响应元数据</h5>
+
+<p>从服务返回给请求的响应可以看做两部分：元数据描述内容和实际的内容。元数据对于大部分协议封装成<code>NSURLResponse</code>类，包含MIME类型，预估内容长度，文本编码（可编程）和提供相应的URL。<code>NSURLRespnse</code>协议自定的子类可提供额外的元数据。举个例子，<code>NSHTTPURLResponse</code>保存了从web服务器返回的的响应头和响应码。</p>
+
+<blockquote>
+<p><b>重要：</b><code>NSURLResponse</code>对象中仅储存响应元数据。不同的URL加载类通过结束回调函数或代理方法提供响应数据。</p>
+
+<p><code>NSCachedURLResponse</code>实例封装了<code>NSURLResponse</code>对象，URL内容数据，和其它提供给应用的附加信息。在缓存管理中将详细讲解。</p>
+</blockquote>
+
+<p>详细的URL响应对象将在文档中逐步阐述。</p>
+
+<h5 id="toc_7">重定向和其它请求变化</h5>
+
+<p>一些协议，例如HTTP，给服务器提供一个方法告知客户端请求的URL的数据被移动到另一个URL。当发生这种情况时URL加载类会通知代理方法。如果有提供合适代理方法，可以处理是返回错误，还是跟随重定向返回重定向后的响应。</p>
+
+<h5 id="toc_8">认证和证书</h5>
+
+<p>一些服务器严格限制访问特定内容，需要用户提供一类证书－客户端证书，用户名和密码等等以获取访问权限。在web服务器中，限制的内容将组织到一个领域，需要一套凭证以访问。证书也用于决定是否信任其它的方面－评估客户端是否信任服务器。</p>
+
+<p>URL加载系统提供一些类，这些类提供安全证书和领域。你可以为一个请求指定这些证书或者在程序启动时，或者保存在钥匙串中。</p>
+
+<blockquote>
+<p><b>注意:</b>在用户钥匙串中储存的证书在所有的应用中共享。</p>
+</blockquote>
+
+<p><code>NSURLCredential</code>类封装了包含认证信息（举个例子：用户名或密码）和持久化行为。<code>NSURLProtectionSpace</code>类表现为一个指定证书的保护区域。一个保护的空间可以被限制为一个URL，包含一个web服务器的这个领域，或者是一个代理服务器。</p>
+
+<p>一个共享的<code>NSURLCredentialStorage</code>类管理证书存储和提供<code>NSURLCredential</code>对象到对应的<code>NSURLProtectionSpace</code>对象的映射以提供认证。</p>
+
+<p><code>NSURLAuthenticationChallenge</code>类封装了<code>NSURLProtocol</code>所需认证请求的信息：目标证书，所涉及到的保护区域，错误或者响应信息以便协议用于决定是否需要认证，认证所尝试的次数。<code>NSURLAuthenticationChallenge</code>实例也指定初始化认证的对象。初始化对象，也就是<code>sender</code>必须遵循<code>NSURLAuthenticationChallengeSender</code>协议。</p>
+
+<p><code>NSURLAuthenticationChallenge</code>实例用于通知<code>NSURLProtocol</code>子类需要认证。也提供了<code>NSURLConnection</code>和<code>NSURLDowload</code>代理方法以便自定义认证处理。</p>
+
+<h4 id="toc_9">缓存管理</h4>
+
+<p>URL加载系统提供一个复合的内存和磁盘缓存以减少应用对网络的依赖，并且能够快速切换之前缓存的响应。缓存存储对于每个应用是独立的。缓存是通过<code>NSURLConnection</code>指定缓存策略给<code>NSURLRequest</code>对象设置的。</p>
+
+<p><code>NSURLCache</code>类提供方法配置缓存大小和缓存磁盘的路径。也提供了管理<code>NSCachedURLResponse</code>对象集合方法，这些对象包含了缓存的响应。</p>
+
+<p><code>NSCachedURLResponse</code>对象封装了<code>NSURLResponse</code>对象和URL内容数据。<code>NSCachedURLResponse</code>也提供了一个用户信息的字典，这个字典可以缓存自定义的数据。</p>
+
+<p>并不是所有的协议都实现支持响应缓存。目前为止只有<code>http</code>和<code>https</code>请求能够缓存。</p>
+
+<p><code>NSURLConnection</code>对象通过实现<code>connection:willCacheResponse:</code>代理方法可以控制响应是否缓存并且是否只是缓存到内存中。</p>
+
+<h4 id="toc_10">Cookie 存储</h4>
+
+<p>由于HTTP协议是无状态的，客户端在URL请求时经常使用cookie提供数据持久化。URL加载系统提供接口创建和管理缓存，发送网络请求时把cookie作为请求的一部分，并且遇到服务器响应设置cookie时接收这些cookie。</p>
+
+<p>OS X和iOS使用<code>NSHTTPCookieStorage</code>类，这个类提供管理<code>NSHTTPCookie</code>对象的集合的接口。在OS X中，cookie存储在所有的应用中可以访问；在iOS上，cookie不能在应用中共享。</p>
+
+<h4 id="toc_11">协议支持</h4>
+
+<p>URL加载系统原生支持<code>http</code>，<code>https</code>，<code>file</code>，<code>ftp</code>和<code>data</code>协议。然而，URL加载系统也允许你的应用自定义类以支持其它应用层网络协议。你可以在URL请求和URL响应对象中添加协议中自定义的属性。</p>
+
+<p>原文地址：<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165-BCICJDHA">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165-BCICJDHA</a></p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14523062727801.html" 
+          title="Previous Post: URL Session编程指南－使用NSURLSession">&laquo; URL Session编程指南－使用NSURLSession</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14520027761309.html" 
+          title="Next Post: UIButton Insets相关">UIButton Insets相关 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>My Notebooks</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Translate.html"><strong>Translate</strong></a>
+        
+            <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
+        
+            <a href="Objective-C.html"><strong>Objective-C</strong></a>
+        
+            <a href="JavaScript.html"><strong>JavaScript</strong></a>
+        
+            <a href="Node.js.html"><strong>Node.js</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="angular_guide_template.html">模版</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14607031159401.html">概览</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14605135696117.html">Dependency Injection(依赖注入)</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="BootStrap.html">BootStrap</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14603429181453.html"></a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

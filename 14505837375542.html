@@ -74,11 +74,15 @@
     <li><label>Categories</label></li>
 
         
+            <li><a href="Translate.html">Translate</a></li>
+        
             <li><a href="iOS_Development.html">iOS_Development</a></li>
         
             <li><a href="Objective-C.html">Objective-C</a></li>
         
             <li><a href="JavaScript.html">JavaScript</a></li>
+        
+            <li><a href="Node.js.html">Node.js</a></li>
          
 
       </ul>
@@ -108,9 +112,9 @@
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
-          
               <span class="posted-in"><a href='Objective-C.html'>Objective-C</a></span>
+          
+              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
            
          
           <span class="comments">
@@ -154,7 +158,7 @@ NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
 NSLog(@&quot;retain count: %ld&quot;, _objc_rootRetainCount(obj));
 </code></pre>
 
-<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code><strong>strong</code>有关系的，ARC下变量默认是<code></strong>strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
+<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code>__strong</code>有关系的，ARC下变量默认是<code>__strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
 
 <pre><code>//MRC 和 ARC下面分别执行
 id obj = [[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
@@ -182,7 +186,7 @@ NSLog(@&quot;%p %ld&quot;, obj1, _objc_rootRetainCount(obj1));
 <li>自己持有的对象不需要时释放</li><br/>
 <li>非自己持有的对象无法释放</li><br/>
 </ul><br/>
-上面的内存管理思考方式引用于<q>Objective-C高级编程iOS与OSX多线程和内存管理</q>。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
+上面的内存管理思考方式引用于&quot;Objective-C高级编程iOS与OSX多线程和内存管理&quot;。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
 
 <h4 id="toc_3">一些现象</h4>
 
@@ -215,7 +219,7 @@ printf(&quot;str: %ld\n&quot;, _objc_rootRetainCount(str));
 str: 1
 </code></pre>
 
-<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code><u>objc</u>rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
+<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code>_objc_rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
 
       </div>
 
@@ -283,11 +287,15 @@ str: 1
 
       	<p class="cat-list">
         
+            <a href="Translate.html"><strong>Translate</strong></a>
+        
             <a href="iOS_Development.html"><strong>iOS_Development</strong></a>
         
             <a href="Objective-C.html"><strong>Objective-C</strong></a>
         
             <a href="JavaScript.html"><strong>JavaScript</strong></a>
+        
+            <a href="Node.js.html"><strong>Node.js</strong></a>
          
         </p>
 
@@ -304,33 +312,59 @@ str: 1
 	      
 		      
 			      <li class="post">
-			        <a href="14518169924577.html">mongoose文档翻译 － Schemas（一）</a>
+			        <a href="angular_guide_template.html">模版</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14512023824704.html">Node.js学习笔记</a>
+			        <a href="14607031159401.html">概览</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505917477642.html">JavaScript中对象的创建方法</a>
+			        <a href="14605135696117.html">Dependency Injection(依赖注入)</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505840078720.html">AssetsLibrary使用</a>
+			        <a href="BootStrap.html">BootStrap</a>
 			      </li>
 		     
 		  
 		      
 			      <li class="post">
-			        <a href="14505835784481.html">Objective-C单例</a>
+			        <a href="14603429181453.html"></a>
 			      </li>
 		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
 		  
 		      
 		  
@@ -378,7 +412,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
     </script>
 
     <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"><div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
 
   </body>

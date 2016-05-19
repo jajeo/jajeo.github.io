@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  UITableView中Cell重用的问题 - My Notebooks
+  mongoose文档翻译 － Schemas（二） - My Notebooks
   
   </title>
   
@@ -105,14 +105,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>UITableView中Cell重用的问题</h1>
+          <h1>mongoose文档翻译 － Schemas（二）</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2015/3/20</span>
+          <span class="date">2016/1/5</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+              <span class="posted-in"><a href='Node.js.html'>Node.js</a></span>
            
          
           <span class="comments">
@@ -125,93 +125,51 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <h4 id="toc_0">遇到的坑</h4>
+      <p>接着之前第一篇继续了</p>
 
-<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+<h4 id="toc_0">选项</h4>
 
-<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @&quot;cell&quot;;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor redColor];
-        }else if(indexPath.row == 1){
-            cell.backgroundColor = [UIColor cyanColor];
-        }else if(indexPath.row == 2){
-            cell.backgroundColor = [UIColor blueColor];
-        }else{
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        return cell;
-        
-    }else {
-        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
-    }
-    return cell;
-}
+<p>Schemas有少许可配置的选项可以直接传递给构造函数或者set函数：</p>
+
+<pre><code>new Schema({...}, options);
+
+//或者
+
+var schema = new Schema({...});
+schema.set(option, value);
 </code></pre>
 
-<p>上面代码问题很明显，拖动显示如下<br/>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+<p>可用的选项：</p>
 
-<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
+<ul>
+<li>  <a href="#autoIndex">autoIndex</a></li>
+<li> <a href="#capped">capped</a></li>
+<li> <a href="#collection">collection</a></li>
+<li> <a href="#emitIndexErrors">emitIndexErrors</a></li>
+<li> <a href="#id">id</a></li>
+<li> <a href="#_id">_id</a></li>
+<li> <a href="#minimize">minimize</a></li>
+<li> <a href="#read">read</a></li>
+<li> <a href="#safe">safe</a></li>
+<li> <a href="#shardKey">shardKey</a></li>
+<li> <a href="#strict">strict</a></li>
+<li> <a href="#toJSON">toJSON</a></li>
+<li> <a href="#toObject">toObject</a></li>
+<li> <a href="#typeKey">typeKey</a></li>
+<li> <a href="#validateBeforeSave">validateBeforeSave</a></li>
+<li> <a href="#versionKey">versionKey</a></li>
+<li> <a href="#skipVersioning">skipVersioning</a></li>
+<li> <a href="#timestamps">timestamps</a></li>
+</ul>
 
-<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-参考下面的代码：</p>
+<h5 id="autoIndex">options: autoIndex</h5>
 
-<pre><code>- (void)_initSubviews{
-    
-    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
-    _msgLb.font = MSGLB_FONT;
-    _msgLb.numberOfLines = 0;
-    [self.contentView addSubview:_msgLb];
-    
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgView.backgroundColor  = [UIColor grayColor];
-    [self.contentView addSubview:_imgView];
-}
+<p>在程序开始的时候，Mongoose为在Schema中定义的每一个索引发送一个<code>ensureIndex</code>的命令。在Mongoose v3版本中，indexes在<code>backgound</code>中默认创建。如果你想要禁用自动创建的功能并且你想在索引创建的时候手动处理，设置Schema的<code>autoIndex</code>选项为false，并且在<code>model</code>中使用<code>ensureIndexes</code>方法。</p>
 
-- (void)_relayoutSubviews{
-    CGFloat width = self.st_width - 2 * K_PADDING;
-    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
-    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
-    
-    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
-}
-
-- (void)layoutSubviews{
-//    [super layoutSubviews];
-    [self _relayoutSubviews];
-}
-
-- (void)setModel:(id)model{
-    if (model) {
-        _model = model;
-        
-        Message *msg = _model;
-        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
-        [_imgView sd_setImageWithURL:imgUrl];
-        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
-        _msgLb.text = mesg;
-        
-        [self setNeedsLayout];
-    }
-}
+<pre><code>var schema = new Schema({...}, {autoIndex: false});
+var Clock = mongoose.model(&#39;Clock&#39;, schema);
+Clock.ensureIndexes(callback);
 </code></pre>
-
-<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
-上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
-<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
 
       </div>
 
@@ -219,13 +177,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14505837375542.html" 
-          title="Previous Post: Objc内存管理属性修饰符号（一）">&laquo; Objc内存管理属性修饰符号（一）</a>
+          <a href="14520027761309.html" 
+          title="Previous Post: UIButton Insets相关">&laquo; UIButton Insets相关</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14518169924577.html" 
+          title="Next Post: mongoose文档翻译 － Schemas（一）">mongoose文档翻译 － Schemas（一） &raquo;</a>
       
       </p>
         </div>

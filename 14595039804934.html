@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  UITableView中Cell重用的问题 - My Notebooks
+  使用导航和路由构件应用－第二部分 - My Notebooks
   
   </title>
   
@@ -105,14 +105,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>UITableView中Cell重用的问题</h1>
+          <h1>使用导航和路由构件应用－第二部分</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2015/3/20</span>
+          <span class="date">2016/4/1</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+              <span class="posted-in"><a href='ionic.html'>ionic_1.x</a></span>
            
          
           <span class="comments">
@@ -125,93 +125,76 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <h4 id="toc_0">遇到的坑</h4>
+      <p>我们使用导航和路由构建了一个基础的应用，如果你已经完成了第一部分，下面我们使用一些高级的功能扩充这个应用。</p>
 
-<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+<p>这个教程我们将维护应用内导航状态来构建一个基础的Todos系统。</p>
 
-<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @&quot;cell&quot;;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor redColor];
-        }else if(indexPath.row == 1){
-            cell.backgroundColor = [UIColor cyanColor];
-        }else if(indexPath.row == 2){
-            cell.backgroundColor = [UIColor blueColor];
-        }else{
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        return cell;
-        
-    }else {
-        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
-    }
-    return cell;
-}
+<h5 id="toc_0">改变视图</h5>
+
+<p>首先修改Home视图现实一个Todos的列表，我们可以通过改变<code>app.home</code>状态申明来实现：</p>
+
+<pre><code>    $stateProvider
+                    .state(&#39;app.todos&#39;, {
+                        url: &#39;&#39;,
+                        views: {
+                            todos:{
+                                templateUrl: &#39;todos.html&#39;,
+                                controller:&#39;TodosCtrl&#39;
+                            }
+                        }
+                    })
 </code></pre>
 
-<p>上面代码问题很明显，拖动显示如下<br/>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+<p>然后需要更新模版里面内容以正确的展示新的列表视图:</p>
 
-<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
-
-<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-参考下面的代码：</p>
-
-<pre><code>- (void)_initSubviews{
+<pre><code>    &lt;ion-nav-bar class=&quot;bar-positive&quot;&gt;
+    &lt;/ion-nav-bar&gt;
     
-    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
-    _msgLb.font = MSGLB_FONT;
-    _msgLb.numberOfLines = 0;
-    [self.contentView addSubview:_msgLb];
+    &lt;ion-tabs class=&quot;tabs-positive&quot;&gt;
     
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgView.backgroundColor  = [UIColor grayColor];
-    [self.contentView addSubview:_imgView];
-}
-
-- (void)_relayoutSubviews{
-    CGFloat width = self.st_width - 2 * K_PADDING;
-    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
-    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
-    
-    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
-}
-
-- (void)layoutSubviews{
-//    [super layoutSubviews];
-    [self _relayoutSubviews];
-}
-
-- (void)setModel:(id)model{
-    if (model) {
-        _model = model;
+        &lt;ion-tab icon=&quot;ion-home&quot; ui-sref=&quot;app.todos&quot;&gt;
+            &lt;ion-nav-view name=&quot;todos&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
         
-        Message *msg = _model;
-        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
-        [_imgView sd_setImageWithURL:imgUrl];
-        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
-        _msgLb.text = mesg;
+        &lt;ion-tab icon=&quot;ion-help&quot; ui-sref=&quot;app.help&quot;&gt;
+            &lt;ion-nav-view name=&quot;help&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
         
-        [self setNeedsLayout];
-    }
-}
+    &lt;/ion-tabs&gt;
 </code></pre>
 
-<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
-上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
-<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
+<p>当然我们也需要在状态中注册的模版：</p>
+
+<pre><code>    &lt;ion-view title=&quot;Todos&quot;&gt;
+        &lt;ion-content&gt;
+            &lt;ion-list&gt;
+                &lt;ion-item ng-repeat=&quot;todo in todos&quot; class=&quot;item item-icon-right&quot;&gt;
+                    &lt;span ng-class=&quot;{done: todo.done}&quot;&gt; {{ todo.title }} &lt;/span&gt;
+                &lt;/ion-item&gt;
+            &lt;/ion-list&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+</code></pre>
+
+<p>这和第一部分里面使用路由一样，如果你还不太了解，请参考第一部分。</p>
+
+<p>我们有一个列表，但是没有任何数据。现在让我制造一些数据：</p>
+
+<pre><code>    app.controller(&quot;TodosCtrl&quot;, function($scope){
+        $scope.todos = [
+            {title: &quot;Take out the trash&quot;, done: true},
+            {title: &quot;Do laundry&quot;, done: false},
+            {title: &quot;Start cooking dinner&quot;, done: false}
+        ];  
+    });
+</code></pre>
+
+<p>当我们刷新页面的时候，一些todos出现了！这在Angular标准中很常见。我们添加一些简单的样式使todos更加显眼：</p>
+
+<pre><code>    .done {
+        text-decoration: line-through;
+    }
+</code></pre>
 
       </div>
 
@@ -219,13 +202,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14505837375542.html" 
-          title="Previous Post: Objc内存管理属性修饰符号（一）">&laquo; Objc内存管理属性修饰符号（一）</a>
+          <a href="14601029562036.html" 
+          title="Previous Post: AngularJS - ngClass">&laquo; AngularJS - ngClass</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14594927899232.html" 
+          title="Next Post: 使用导航和路由构件应用－第一部分">使用导航和路由构件应用－第一部分 &raquo;</a>
       
       </p>
         </div>

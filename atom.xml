@@ -4,13 +4,2117 @@
   <title><![CDATA[My Notebooks]]></title>
   <link href="http://www.hpmczz.com/atom.xml" rel="self"/>
   <link href="http://www.hpmczz.com/"/>
-  <updated>2016-01-05T21:55:06+08:00</updated>
+  <updated>2016-05-19T13:41:51+08:00</updated>
   <id>http://www.hpmczz.com/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[模版]]></title>
+    <link href="http://www.hpmczz.com/angular_guide_template.html"/>
+    <updated>2016-04-15T16:14:25+08:00</updated>
+    <id>http://www.hpmczz.com/angular_guide_template.html</id>
+    <content type="html"><![CDATA[
+<p>在Angular中，模版是包含Angular指定元素和属性的HTML。用户在浏览器中看到的是Angular结合实体和控制器的信息来动态地渲染的视图。</p>
+
+<p>你可以使用的Angular元素和属性分类如下：</p>
+
+<ul>
+    <li><a href="angular_dev_guide_directive">指令</a> － 一个已经存在DOM元素的属性或者一个可重用的DOM组件。</li>
+    <li><a href="angular_dev_guide_markup">标记</a> － 内置的Angular标记采用双花括号表示法 {{}} 给元素绑定表达式</li>
+    <li><a href="angular_dev_guide_filter">过滤器</a> － 格式化数据</li>
+    <li><a href="angular_dev_guide_form_control">表单控制</a> － 验证用户输入</li> 
+</ul>
+
+<p>下面的代码展示了指令和花括号表达式绑定的模版：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; ng-app&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-controller=&quot;MyController&quot;&gt;
+
+&lt;input ng-model=&quot;foo&quot; value=&quot;bar&quot;&gt;
+&lt;button ng-click=&quot;changeFoo()&quot;&gt;{{ buttonText }}&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>在这个简单的应用中，这个模版包含HTML，CSS和Angular指令，都在一个HTML文件中（通常是<code>index.html</code>)。</p>
+
+<p>在复杂的应用中，你可以使用&quot;局部模版&quot;在一个主页面显示许多视图 － 单独的HTML文件，你可以使用<a href="./angular_api_ngview.html">ngView</a>指令通过配置<a href="./angular_api_route.html">$route</a>服务时加载局部模版。<br/>
+在<a href="phonecat_8.html">教程</a>第八和第九步使用了这个技术。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[概览]]></title>
+    <link href="http://www.hpmczz.com/14607031159401.html"/>
+    <updated>2016-04-15T14:51:55+08:00</updated>
+    <id>http://www.hpmczz.com/14607031159401.html</id>
+    <content type="html"><![CDATA[
+<p>这节简要的使用一个简单的例子介绍AngularJS中的一些重要部分。如果需要更深入的解释，请参考这篇<a href="./phonecat_1.html">教程</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>概念</th>
+            <th>描述</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="#template">模版</a></td>
+            <td>附加标记的HTML</td>
+        </tr>
+        <tr>
+            <td><a href="#directives">指令</a></td>
+            <td>使用自定义属性和元素扩展的HTML</td>
+        </tr>
+        <tr>
+            <td><a href="#model">实体</a></td>
+            <td>视图中展现给用户的数据和跟用户互动的数据</td>
+        </tr>
+        <tr>
+            <td><a href="#scope">范围</a></td>
+            <td>控制器,指令和表达式可以访问model所存储的上下文环境</td>
+        </tr>
+        <tr>
+            <td><a href="#expressions">表达式</a></td>
+            <td>从scope中访问变量和函数</td>
+        </tr>
+        <tr>
+            <td><a href="#compiler">Compiler</a></td>
+            <td>解析模版，实例化的指令和表达式</td>
+        </tr>
+        <tr>
+            <td><a href="#filter">过滤器</a></td>
+            <td>给用户格式化后表达式的值</td>
+        </tr>
+        <tr>
+            <td><a href="#view">视图</a></td>
+            <td>用户所见（DOM)</td>
+        </tr>
+        <tr>
+            <td><a href="#databingding">数据绑定</a></td>
+            <td>视图和实体之间的数据同步</td>
+        </tr>
+        <tr>
+            <td><a href="controller">控制器</a></td>
+            <td>视图背后的业务逻辑</td>
+        </tr>
+        <tr>
+            <td><a href="dependencyinjection">依赖注入</a></td>
+            <td>创建连接对象和函数</td>
+        </tr>
+        <tr>
+            <td><a href="injector">注入器</a></td>
+            <td>依赖注入的容器</td>
+        </tr>
+        <tr>
+            <td><a href="module">模块</a></td>
+            <td>一个应用不同部分的容器，这些不同的部分包含配置注入器的控制器，服务，过滤器，指令</td>
+        </tr>
+        <tr>
+            <td><a href="service">服务</a></td>
+            <td>视图中可重用的业务逻辑</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4 id="toc_0">第一个例子： 数据绑定</h4>
+
+<p>下面的例子中我们创建了一个表单以计算不同币种下的发票金额。</p>
+
+<p>我们使用数量和单价输入框，他们值的乘积是发票的金额：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-app ng-init=&quot;qty=1; cost=2&quot;&gt;
+
+&lt;b&gt;Invoice:&lt;/b&gt;
+&lt;div&gt;
+    Quantity: &lt;input type=&quot;number&quot; min=&quot;0&quot; ng-model=&quot;qty&quot;&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    Cost: &lt;input type=&quot;number&quot; min=&quot;0&quot; ng-model=&quot;cost&quot;&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    &lt;b&gt;Total: &lt;/b&gt; {{ qty * cost | currency}}
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<p>试下上面的例子，然后我们一个瞧瞧这个例子里面发生了什么。</p>
+
+<p>看起来像普通的HTML，附带一些新的标记。在Angular中，一个这样的文件称之为<a href="./angular_guide_template.html" id="template">模版</a>。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dependency Injection(依赖注入)]]></title>
+    <link href="http://www.hpmczz.com/14605135696117.html"/>
+    <updated>2016-04-13T10:12:49+08:00</updated>
+    <id>http://www.hpmczz.com/14605135696117.html</id>
+    <content type="html"><![CDATA[
+<p>Dependency Injection(DI)是一个软件设计模式，这个模式处理组件如何有效控制他们的依赖关系。</p>
+
+<p>Angular injector子系统负责创建组件，处理他们的依赖关系，并且当其他组件需要这个组件时提供给他们。</p>
+
+<h4 id="using_dependency_injection">使用Dependency Injection</h4>
+
+<p>DI在Angular中无处不在。你可以在定义组件或者给模块<code>run</code>和<code>config</code>回调中使用它。</p>
+
+<ul>
+    <li>类似服务，指令，过滤器和动画的组件是由一个injectable factory方法或者构造函数定义的。这些组件可以使用<code>service</code>和<code>value</code>组件作为依赖</li>
+    <li>控制器是由构造函数定义的，并且可以使用任何<code>service</code>和<code>value</code>组件作为它的依赖，他们也可以提供依赖。详细请查看下面<a href="#controllers">控制器</a>中的内容。</li>
+    <li><code>run</code>方法接收一个函数，可以注入<code>service</code>，<code>value</code>和<code>constant</code>组件作为依赖，请注意，你不能注入<code>providers`</code>到<code>run</code>回调中。</li>
+    <li><code>config</code>方法接收一个函数，可以注入<code>provider</code>和<code>constant</code>组件作为依赖。请注意，不能在<code>config</code>中注入<code>service</code>和<code>value</code>。</li>
+</ul>
+
+<p>参考<a href="./angular_module.html">Modules</a>以获取更多<code>run</code>和<code>config</code>回调信息。</p>
+
+<h5 id="factory_methods">Factory Methods(工厂方法)</h5>
+
+<p>使用factory function定义<code>directive</code>,<code>service</code>或者<code>filter</code>的方法。facotry methods在模块中注册。推荐声明factorie的方法：</p>
+
+<pre><code>angular.module(&#39;myModule&#39;, [])
+.factory(&#39;serviceId&#39;, [&#39;depService&#39;, function(depService){
+    //...
+})
+.directive(&#39;directiveName&#39;, [&#39;depService&#39;, function(depService){
+    //...
+})
+.filter(&#39;filterName&#39;, [&#39;depService&#39;, function(depService){
+    //...
+});
+
+</code></pre>
+
+<h5 id="module_methods">Module Method（模块方法）</h5>
+
+<p>在模块配置和运行时我们可以调用<code>config</code>和<code>run</code>方法为此模块指定函数。这些函数与上面的<a href="#using_dependency_injection">工厂方法</a>类似。</p>
+
+<pre><code>angular.module(&#39;myModule&#39;, [])
+.config([&#39;depProvider&#39;, function(depProvider){
+    //...
+}])
+.run([&#39;depService&#39;, function(depService){
+    //...
+}]);
+</code></pre>
+
+<h5 id="controllers">Controller(控制器)</h5>
+
+<p>控制器是<code>classes</code>或者<code>constructor functions</code>，支持模版中标记的声明提供应用程序行为。推荐的声明控制器的方法是使用数组语法：</p>
+
+<pre><code>someModule.controller(&#39;MyController&#39;, [&#39;$scope&#39;, &#39;dep1&#39;, &#39;dep2&#39;, function($scope, dep1, dep2){
+    ...
+    $scope.aMethod = function(){
+        ...
+    }
+    ...
+}]);
+</code></pre>
+
+<p>不像<code>service</code>，在应用中同一个类型的控制器可能有许多实例。</p>
+
+<p>而且，对于控制器而言一些附加的依赖变得可用：</p>
+
+<ul>
+    <li><code>$scope：</code>在DOM中控制器关联一个元素并且提供<a href="./angular_scope.html">scope</a>访问支持。其他的组件（像services）仅有<code><a href="angular_rootScope.html">$rootScope</a></code>访问权限。</li>
+    <li>resolves：如果controller作为路由的一部分实例化，任何路由中resolved的值对于controller是可用的。</li>
+</ul>
+
+<h4 id="dependency_annotation">Dependency Annotation（依赖语法）</h4>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BootStrap]]></title>
+    <link href="http://www.hpmczz.com/BootStrap.html"/>
+    <updated>2016-04-12T16:39:29+08:00</updated>
+    <id>http://www.hpmczz.com/BootStrap.html</id>
+    <content type="html"><![CDATA[
+<p>这篇文章说明Angular初始化过程以及怎么样手动初始化Angular。</p>
+
+<h4 id="toc_0">Angular <code>&lt;script&gt;</code> 标签</h4>
+
+<p>这个例子演示了推荐的初始化Angular的方法，我们称为自动初始化。</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html xmlns:ng=&quot;http://angularjs.org&quot; ng-app&gt;
+    &lt;body&gt;
+    ...
+    &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<ol>
+<li><code>script</code>标签放在页面的最末尾。把<code>script</code>标签放在页面的后面可以改善应用加载时间，这是因为HTML加载不会被<code>angular.js</code>的加载所阻塞。你可以从<a href="http://code.angularjs.org">http://code.angularjs.org</a>获取源码。请不要将你的生产环境代码连接到这个URL，因为它会使你的站点出现安全漏洞。以实验为目的可以连接到这个URL。
+<ul>
+    <li>开发和调试过程中使用<code>angular-[version].js</code>以便于阅读</li>
+    <li>使用<code>angular-[version].min.js</code>以便获取一个压缩并且打乱的文件，适合在生产环境中使用。</li>
+</ul>
+</li>
+<li>将<code>ng-app</code>放置在应用程序的根节点，如果你想angular自动引导应用通常放到<code>html</code>标签中。</li>
+<li>如果你想使用旧的指令<code>ng:</code>，然后在<code>html</code>包含xml-namespace以适配IE。（这个是由于历史原因，我们已经不推荐使用<code>ng:</code>）</li>
+</ol>
+
+<h4 id="toc_1">自动初始化</h4>
+
+<p>Angular通过<code>DOMContentLoaded</code>事件自动初始化或者是<code>document.readyState</code>设置为<code>&#39;complete&#39;</code>时执行<code>angular.js</code>脚本。这时Angular查找指定应用程序根的<code>ngApp</code>指令。如果<code>ngApp</code>指令找到了，Angular将做如下操作：<br/>
+<ul><br/>
+    <li>加载<a href="./angular_module.html">module</a>关联的指令</li><br/>
+    <li>创建应用的<a href="./angular_injector.html">injector</a></li><br/>
+    <li>把<code>ngApp</code>当成是根编译DOM。这个也允许你去只是把它当成是Angular应用DOM的一部分。</li><br/>
+</ul></p>
+
+<p><img src="media/14604503692547/concepts-startup.png" alt="concepts-startup"/></p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html ng-app=&quot;optionalModuleName&quot;&gt;
+    &lt;body&gt;
+        I can add: {{ 1+2 }}.
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>作为最佳实践，请考虑添加<code>ng-strict-di</code>指令到同一个元素中，像<code>ng-app</code>一样：</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html ng-app=&quot;optionalModuleName&quot; ng-strict-di&gt;
+    &lt;body&gt;
+        I can add {{ 1+ 2}}.
+        &lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>这些将保证应用中所有的服务都有正确的注解。请参考</p>
+
+<h4 id="toc_2">手动初始化</h4>
+
+<p>如果你需要对初始化进度做更多的控制，你可以使用手动引导方法。当你需要使用包含脚本加载器或者需要在Angular编译页面之前执行一些操作。</p>
+
+<p>下面是一个手动加载Angular的例子：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Manual Bootstrap&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        angular.module(&#39;myApp&#39;, [])
+        .controller(&#39;MyController&#39;, [&#39;$scope&#39;, function($scope){
+            $scope.greetMe = &#39;World&#39;;
+        }])
+        
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div ng-controller=&quot;MyController&quot;&gt;
+    {{ greetMe }}
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[]]></title>
+    <link href="http://www.hpmczz.com/14603429181453.html"/>
+    <updated>2016-04-11T10:48:38+08:00</updated>
+    <id>http://www.hpmczz.com/14603429181453.html</id>
+    <content type="html"><![CDATA[
+<h1 id="provider">$provide</h1> 
+
+<h4 id="toc_0">$provide - <code>auto</code>模块中的服务</h4>
+
+<p><code>$provide</code>服务为<code>$injector</code>提供许多注册组件的方法。许多函数也暴露给<code>angular.Module</code>。</p>
+
+<p>一个angular服务是由<code>service factory</code>创建的单例对象。<code>service factories</code>实际上是一些由<code>service provider</code>创建的函数。<code>service providers</code>是一些构造函数。当实例化得时候他们必须包含一个叫做<code>$get</code>的属性，这个属性保存<code>service factory</code>函数。</p>
+
+<p>当你请求一个服务，<code>$injector</code>的责任是去寻找一个正确的<code>service provider</code>，实例化它然后调用它的<code>$get service factory</code>函数以获取这个<code>service</code>的实例。</p>
+
+<p>通常上讲，如果服务没有配置选项并且不需要添加方法到<code>service provider</code>中。这个<code>provider</code>将不仅仅是一个包含<code>$get</code>属性的构造器。在这种情况下，<code>$provide</code>服务又一些附加方法可以注册服务而不需要指定一个<code>provider</code>。</p>
+
+<div class="container">
+    <ul>    
+     <li><a href="#provider">provider(provider)</a> - 为$injector注册一个`service provider`</li>
+     <li><a href="#constant">constant(obj)</a> - 注册一个`providers`和`services`都能访问的值／对象对</li>
+     <li><a href="#value">value(obj)</a> - 注册一个`services`能访问的值／对象对，但是`providers`不能访问</li>
+     <li><a href="#factory">factory(fn)</a> - 注册一个`factory service`服务，这个服务将包装在`service provider`对象中，它的`$get`属性将包含这个`factory｀函数。</li>
+     <li><a href="#service">service(class)</a> - 注册一个构造函数，这个`class`将包装在`service provider`对象中，它的`$get`属性使用这个给定的构造函数实例化一个新的对象。</li>
+
+ </ul>
+ </div>
+
+<p>参考各自的方法以获取更多的信息和示例。</p>
+
+<h4 id="toc_1">方法</h4>
+
+<h5 id="toc_2"><code>provider(name, provider);</code></h5>
+
+<p>为<code>$injector</code>注册一个<code>provider function</code>。<code>provider functions</code>是构造函数，这些构造函数负责提供一个工厂服务。</p>
+
+<p><code>service provider</code>以服务的名字开始紧跟着<code>Provider</code>。举个例子，<code>$log</code>服务的provider叫做<code>$logProvider</code>。</p>
+
+<p><code>service provider</code>对象可以有一些附加的方法以允许配置<code>provider</code>和它的服务。需要注意的是，你可以配置<code>$get</code>方法创建服务的种类，或者服务扮演怎样的角色。举个例子，<code>$logProvider</code>有一个<code>debugEnabled</code>方法让你指定<code>$log</code>服务将指定日志信息是否输出到控制台。</p>
+
+<h6 id="toc_3">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>实例的名字。注意：<code>provider</code>的名字为<code>name+'provider'</code>。</td>
+        </tr>
+        <tr>
+            <td>provider</td>
+            <td>对象，function()</td>
+            <td>
+            如果<code>provider</code>是：
+                <ul>
+                    <li>对象：这个对象应该有一个<code>$get</code>方法。<code>$get</code>方法将使用$injector.invoke()方法调用以创建一个实例。</li>
+                    <li>构造函数：<code>provider</code>的实例将使用$injector.instantiate()方法创建，然后当作<code>对象</code>使用。</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_4">返回</h6>
+
+<p><code>对象</code> － 已经注册了的<code>provider</code>的实例</p>
+
+<h5 id="factory"><code>factory(name, $getFn);</code></h5>
+
+<p>注册一个调用时返回一个服务实例的<code>service factory</code>。用于注册一个<code>provider</code>只包含一个<code>$get</code>属性的服务，即这个给定的服务工厂函数。你可以使用<code>$provide.factory(getFn)</code>如果你不需要在<code>provider</code>中配置你的服务。</p>
+
+<h6 id="toc_5">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>实例的名字。注意：<code>provider</code>的名字为<code>name+'provider'</code>。</td>
+        </tr>
+        <tr>
+            <td>$getFn</td>
+            <td>function()</td>
+            <td>
+            $genFn是创建实例的函数。等同于<code>$provide.provider(name, {$get: $getFn})</code>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_6">返回</h6>
+
+<p><code>对象</code> － 已经注册了的<code>provider</code>的实例</p>
+
+<h5 id="service"> <code>service(name, constructor);</code></h5>
+
+<p>注册一个<code>service constructor</code>，使用<code>new</code>调用以创建服务的实例。用于注册一个服务，这个服务的<code>provider</code>的<code>$get</code>属性是服务构造函数，这个构造函数将用于实例化服务对象。</p>
+
+<h6 id="toc_7">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>实例的名字。注意：<code>provider</code>的名字为<code>name+'provider'</code>。</td>
+        </tr>
+        <tr>
+            <td>constructor</td>
+            <td>function</td>
+            <td>
+                一个将要被实例化类(构造函数)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_8">返回</h6>
+
+<p><code>对象</code> － 已经注册了的<code>provider</code>的实例</p>
+
+<h5 id="value"><code>value(name, value);</code></h5>
+
+<p>给<code>$injector</code>注册一个<code>value service</code>，例如字符串，数字，数组，对象或者一个函数。用于注册一个服务，这个服务的<code>$get</code>属性是一个工厂函数并且不带任何参数返回<code>value service</code>。</p>
+
+<p>vaule服务和constant服务类似。除了他们不能注入到模块配置函数中（查看<code>angular.Module</code>）但可以被Angular<a href="#"> decorator</a>重写。</p>
+
+<h6 id="toc_9">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>实例名字</td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>*</td>
+            <td>
+                值
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_10">返回</h6>
+
+<p><code>对象</code> － 已经注册了的<code>provider</code>的实例</p>
+
+<h5 id="constant"><code>constant(name, value);</code></h5>
+
+<p>为$injector注册一个<code>contant service</code>，例如字符串，数字，数组，一个对象或者一个函数。不像<a href="#vaule">vaule</a>，它能注入到一个模块配置函数（查看angular.Module）并且不能被Angular<a href="#decorator">decorator</a>重写。</p>
+
+<h6 id="toc_11">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>实例名字</td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>*</td>
+            <td>
+                值
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_12">返回</h6>
+
+<p><code>对象</code> － 册的实例</p>
+
+<h5 id="decorator"><code>decorator(name, decorator);</code></h5>
+
+<p>为$injector注册一个<code>service decorator</code>。一个service decorator拦截服务的创建，允许重写或者修改服务的行为。decorator返回的对象可能是原始的服务，或者一个新的服务对象以取代或者包装或代理原始服务。</p>
+
+<h6 id="toc_13">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>需要装饰的服务</td>
+        </tr>
+        <tr>
+            <td>decorator</td>
+            <td>function()</td>
+            <td>
+                当服务实例化的时候函数将调用，并且返回被包装后的实例。函数使用injector.invoke方法调用并且可以完全注入。本地注入参数：
+                <code>$delegate</code> - 原始服务实例，可以重新配置，修改或者代理。</code>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS - module]]></title>
+    <link href="http://www.hpmczz.com/angular_module.html"/>
+    <updated>2016-04-11T10:10:26+08:00</updated>
+    <id>http://www.hpmczz.com/angular_module.html</id>
+    <content type="html"><![CDATA[
+<h5 id="toc_0">angular.module - <code>ng</code>模块中的函数</h5>
+
+<p><code>angular.module</code>是一个全局区以创建，注册，检索Angular模块。所有的模块（angular核心或者第三方模块）必须使用这个机制注册以在应用程序中可用。</p>
+
+<p>当传递两个或者多个参数时，一个新的模块就会被创建。</p>
+
+<p>如果只是传递一个参数，一个已经存在的模块（第一个参数指定模块的参数名）将会被检索出来。</p>
+
+<h5 id="toc_1">模块</h5>
+
+<p>一个模块是一个服务，指令，控制器，过滤器和配置信息的集合。<code>angular.module</code>常用于配置<a href="./angularjs_injector.html">$injector</a></p>
+
+<pre><code>//创建一个新的模块
+var myModule = angular.module(&#39;myModule&#39;,[]);
+//注册一个新的服务
+myModule.value(&#39;appName&#39;, &#39;MyCoolApp&#39;);
+//在初始化回调函数中配置已经存在服务
+myModule.config([&#39;$locationProvider&#39;, function($locationProvider){
+    $locationProvider.hashPrefix(&#39;!&#39;);
+}]
+</code></pre>
+
+<p>然后你可以创建一个injector并且加载你的模块：</p>
+
+<pre><code>var injector = angular.injector([&#39;ng&#39;, &#39;myModule&#39;]);
+</code></pre>
+
+<p>然而你可以使用<code>ngApp</code>或者<code>angular.bootstrap</code>简化这些步骤。</p>
+
+<h5 id="toc_2">使用</h5>
+
+<p><code>angular.module(name, [requires], [configFn]);</code></p>
+
+<h6 id="toc_3">参数</h6>
+
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>字符串</td>
+            <td>检索或者需要创建的模块</td>
+        </tr>
+        <tr>
+            <td>requires(可选)</td>
+            <td>字符串数组</td>
+            <td>如果指定了，新的模块被创建；
+            如果没有指定，将检索模块以附加配置信息</td>
+        </tr>
+        <tr>
+        <td>configFn(可选)</td>
+        <td>Function=</td>
+        <td>模块的配置函数</td>
+        </tr>
+    </tbody>
+</table>
+
+<h6 id="toc_4">返回</h6>
+
+<p><code>module</code> <code>angular.Module</code> api 新的模块</p>
+
+<h5 id="toc_5">什么是Module?</h5>
+
+<p>你可以把一个模块想象成一个容器包含你的应用的不同部分 － 控制器，服务，过滤器，指令等。</p>
+
+<h5 id="toc_6">为什么使用？</h5>
+
+<p>大部分应用有一个主要的方法，这个方法实例化并且将应用的不同部分连接起来。</p>
+
+<p>Angualr应用并没有一个主要的方法。而使用模块的声明来指定应用程序的开关。使用这个方法有一些优点：</p>
+
+<ul>
+    <li>使用声明更加易懂。</li>
+    <li>可以打包代码以复用。</li>
+    <li>模块能以任何顺序去加载(或者并行)，因为模块可以延迟执行。</li>
+    <li>单元测试只用加载关联的模块，这样会保证测试足够快</li>
+    <li>端对端的测试可以使用模块以复写配置。</li>
+</ul>
+
+<h5 id="toc_7">基本使用</h5>
+
+<p>那么怎么样让<code>Hello World</code>模块工作呢？代码如下：</p>
+
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+           var app = angular.module(&#39;myApp&#39;, []);
+           app.filter(&#39;greet&#39;, function(){
+            return function(name){
+                return &quot;Hello, &quot; + name + &quot;!&quot;;
+            }
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div ng-app=&quot;myApp&quot;&gt;
+            &lt;div&gt;
+                {{ &#39;World&#39; | greet}}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>需要注意的是：<br/>
+<ul><br/>
+<li>Module API</li><li><code>&lt;div ng-app=&quot;myApp&quot;&gt;</code>中<code>myApp</code>模块的引用。这就是应用中引导程序如何使用你的模块。</li><li><code>angular.module(&#39;myApp&#39;, [])</code>中的空数组。这个数组列举了<code>myApp</code>需要依赖的模块。</li><br/>
+    </ul></p>
+
+<h5 id="toc_8">推荐设置</h5>
+
+<p>上面的例子很简单，但并不是大型应用的缩影。于是我们推荐你将应用分成多个模块：</p>
+
+<ul>
+<li>一个模块一个功能。</li>
+<li>每一个可复用的组件一个模块（尤其指令和过滤器）。</li>
+<li>依赖上面模块的应用级模块并且包含初始化代码。</li>
+</ul>
+
+<p>我们也<a href="./">写了一篇文档</a>来说明在Google内大的应用中是如何代码的。</p>
+
+<h5 id="toc_9">模块加载&amp;依赖</h5>
+
+<p>一个模块是一个配置集合并且在应用开始时执行一些回调函数。在最简单的情况下，这个模块的集合中只有两种类型的回调：<br/>
+<ol><li><b>配置回调</b> - 在<code>provider</code>注册和配置阶段执行，只有<code>providers</code>和<code>constants</code>可以注入到配置回调中。这是为了防止在他们已经完全配置好之前出现意外的服务实例。</li><li><b>运行时回调</b> － 在<code>injector</code>创建之后执行，用于执行程序。只有<code>instances</code>和<code>constants</code>可以注入到运行时回调中。这些将防止在程序运行时更多的系统配置。</b></li><br/>
+</ol></p>
+
+<pre><code>angular.module(&#39;myModule&#39;, [])
+.config(function(injectables){//provider-injector
+    //这是一个配置回调的例子。
+    //可能会有很多个。
+    //只能注入Providers(非实例）到配置回调中。
+})
+.run(function(injectables){//instance-injector
+    //这是一个运行时回调的例子。
+    //可能会有很多个。
+    //仅能注入实例（非Providers）到运行时回调中
+});
+</code></pre>
+
+<h6 id="toc_10">配置回调</h6>
+
+<p>有一些便利的方法等同于<code>config</code>回调，举个例子：</p>
+
+<pre><code>angular.module(&#39;myModule&#39;, [])
+    .value(&#39;a&#39;, 123).
+    .factory(&#39;a&#39;, function(){return 123;})
+    .directive(&#39;directiveName&#39;, ...)
+    .filter(&#39;filterName&#39;, ...);
+    
+angular.module(&#39;myModule&#39;, [])
+    .config(function($provide, $compileProvider, $filterProvider){
+        $provide.value(&#39;a&#39;, 123);
+        $provide.factory(&#39;a&#39;, function(){return 123;});
+        $compileProvider.directive(&#39;directiveName&#39;, ...);
+        $filterProvider.register(&#39;filterName&#39;, ...);
+    });
+</code></pre>
+
+<div style="background-color:#daedf6; color:#5c708e; padding: 10px;border:0.5px solid #5c708e; font-size:14px;">
+当程序引导的时候，第一个Angular应用所有的`constant`定义。然后Angular安装配置回调注册的书序执行这些回调。
+</div>
+
+<h6 id="toc_11">运行时回调</h6>
+
+<p>跟Angular中执行时回调最接近的是主方法了。一个运行时回调是一段需要执行的代码以运行应用。它在所有的服务配置完成并且<code>injector</code>已经创建完成之后执行。<code>run blocks</code>通常包含的代码难以单元测试，由于这个原因这些代码经常声明在单独的模块中，然后他们在单元测试中可以被忽略掉。</p>
+
+<h5 id="toc_12">依赖</h5>
+
+<p>模块可以列出其他的模块作为依赖。依赖一个模型意味着被依赖的模块需要在此模块加载之前加载。换句话说，被依赖模块的配置回调在此模块的配置回调之前执行。对于运行时回调也相同。每一个模块只能加载一次，尽管许多其他的模块也依赖这个模块。</p>
+
+<h5 id="toc_13">异步加载</h5>
+
+<p>模块是管理<code>$injector</code>配置的一种方法，并且在加载脚本到VM中的时候没有做任何事情。这里有一些已经存在的项目，这些像唒中处理脚本加载，有些会用到Angular。由于模块在加载到VM中的时候没有做任何事情，并且脚本加载中可以利用这个属性的优势平行的加载。</p>
+
+<h5 id="toc_14">创建相反的检索</h5>
+
+<p>需要注意的是使用<code>angular.module(&#39;myModule&#39;, [])</code>将要创建一个<code>myModule</code>的模块并且复写了一个名为<code>myModule</code>的模块。使用<code>angular.module(&#39;myModule&#39;)</code>迭代一个已经存在的模块。</p>
+
+<pre><code>var myModule = angular.module(&#39;myModule&#39;, []);
+
+//添加一些指令和服务
+myModule.service(&#39;myService&#39;, ...);
+myModule.directive(&#39;myDirective&#39;, ...);
+
+//创建一个新的模块重写myService和myDirective
+var myModule = angular.module(&#39;myModule&#39;, []);
+//由于myOtherModule还未定义抛出一个错误
+var myModule = angular.module(&#39;myOtherModule&#39;);
+</code></pre>
+
+<h5 id="toc_15">单元测试</h5>
+
+<p>单元测试是应用程序开发中的一个子集。小的，结构良好的模块使单元测试简单而集中。</p>
+
+<p>每一个模块对于一个<code>injector</code>只会加载一次。通常上讲Angular的应用直邮一个<code>injector</code>并且模块只能加载一次。每一个测试都有自己的<code>injector</code>模块会被多次加载。</p>
+
+<p>在下面的例子中我们假定这个模块定义如下：<br/>
+<code><br/>
+angular.module(&#39;greetMod&#39;, [])<br/>
+.factory(&#39;alert&#39;, function($window){<br/>
+    return function(text){<br/>
+        $window.alert(text);<br/>
+    }<br/>
+})<br/>
+.value(&#39;salutation&#39;, &#39;Hello&#39;)<br/>
+.factory(&#39;greet&#39;, function(alert, salutation){<br/>
+    return function(name){<br/>
+        alert(salutation + &#39; &#39; + name + &#39;!&#39;);<br/>
+    }<br/>
+});<br/>
+</code></p>
+
+<p>下面的代码演示如何在测试中重写配置：</p>
+
+<pre><code>describe(&#39;myApp&#39;, function() {
+  // load application module (`greetMod`) then load a special
+  // test module which overrides `$window` with a mock version,
+  // so that calling `window.alert()` will not block the test
+  // runner with a real alert box.
+  beforeEach(module(&#39;greetMod&#39;, function($provide) {
+    $provide.value(&#39;$window&#39;, {
+      alert: jasmine.createSpy(&#39;alert&#39;)
+    });
+  }));
+
+  // inject() will create the injector and inject the `greet` and
+  // `$window` into the tests.
+  it(&#39;should alert on $window&#39;, inject(function(greet, $window) {
+    greet(&#39;World&#39;);
+    expect($window.alert).toHaveBeenCalledWith(&#39;Hello World!&#39;);
+  }));
+
+  // this is another way of overriding configuration in the
+  // tests using inline `module` and `inject` methods.
+  it(&#39;should alert using the alert service&#39;, function() {
+    var alertSpy = jasmine.createSpy(&#39;alert&#39;);
+    module(function($provide) {
+      $provide.value(&#39;alert&#39;, alertSpy);
+    });
+    inject(function(greet) {
+      greet(&#39;World&#39;);
+      expect(alertSpy).toHaveBeenCalledWith(&#39;Hello World!&#39;);
+    });
+  });
+});
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS - ngClass]]></title>
+    <link href="http://www.hpmczz.com/14601029562036.html"/>
+    <updated>2016-04-08T16:09:16+08:00</updated>
+    <id>http://www.hpmczz.com/14601029562036.html</id>
+    <content type="html"><![CDATA[
+<h5 id="toc_0">ngClass - <code>ng</code>模块中的指令</h5>
+
+<p><code>ngClass</code>指令允许你使用数据绑定表达式代表所有添加的样式以动态的设置HTML元素关联的CSS样式。</p>
+
+<p>操作指令使用三种不同的方法，取决于三种不同类型的表达式：</p>
+
+<pre><code>1. 如果表达式是一个字符串，这个字符串应该是一个或者多个空格分隔的类名。
+2. 如果表达式是一个数组，数组的每一个元素应该是应该是一个或者多个空格分隔的字符串类名。
+3. 如果表达式是一个对象，这个对象的每一组键值对拥有真实值的键将会是类名。
+</code></pre>
+
+<p>这个指令不会重复添加已经添加的类。</p>
+
+<p>当表达式发生变化时，先前添加的类将会被全部移除，然后新的类会被添加上去。</p>
+
+<h5 id="toc_1">指令信息</h5>
+
+<p>这个指令执行的优先级为0。</p>
+
+<h5 id="toc_2">使用</h5>
+
+<p>作为属性：</p>
+
+<pre><code>    &lt;ANY
+        ng-class=&quot;&quot;&gt;
+        ...
+    /ANY&gt;
+</code></pre>
+
+<p>作为一个css类：</p>
+
+<pre><code>&lt;ANY class=&quot;ng-class: ;&quot;&gt;&lt;/ANY&gt;
+</code></pre>
+
+<h5 id="toc_3">动画</h5>
+
+<p>add - 发生在类即将被添加到元素上<br/>
+remove -  发生在类即将从元素上移除时<br/>
+更多内容请参考<a href="http://docs.angularjs.cn/api/ngAnimate/service/$animate">这里</a></p>
+
+<h5 id="toc_4">参数</h5>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>类型</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ngClass</td>
+            <td>表达式</td>
+            <td>表达式内容，前面所说的三种不同的表达式类型</td>
+        </tr>
+    </tbody>
+</table>
+
+<h5 id="toc_5">例子</h5>
+
+<p>这个例子阐述了ngClass指令的基本使用。</p>
+
+<pre><code>    &lt;html lang=&quot;en&quot; &gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+        &lt;style&gt;
+            .skrike {
+                text-decoration: line-through;
+            }
+            .bold {
+                font-weight: bold;
+            }
+            .red {
+                color: red;
+            }
+        &lt;/style&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;&quot;&gt;
+    &lt;p ng-class=&quot;{strike:deleted, bold: important, red: error}&quot;&gt;Map Syntax Example&lt;/p&gt;
+        &lt;input type=&quot;checkbox&quot; ng-model=&quot;deleted&quot;&gt;delete (apply &quot;strike&quot; class) &lt;br/&gt;
+        &lt;input type=&quot;checkbox&quot; ng-model=&quot;important&quot;&gt;important (apply &quot;bold&quot; class)&lt;br/&gt;
+        &lt;input type=&quot;checkbox&quot; ng-model=&quot;error&quot;&gt;error (apply &quot;error&quot; class)
+     &lt;hr/&gt;
+      
+     &lt;p ng-class=&quot;style&quot;&gt;Using String Syntax&lt;/p&gt;
+     &lt;input type=&quot;text&quot; ng-model=&quot;style&quot; placeholder=&quot;Type: bold strike red&quot;&gt;
+     &lt;hr/&gt;
+     
+     &lt;p ng-class=&quot;[style1, style2, style3]&quot;&gt;Using Array Syntax&lt;/p&gt;
+     &lt;input ng-model=&quot;style1&quot; placeholder=&quot;Type: bold strike red&quot;&gt;&lt;br/&gt;
+     &lt;input ng-model=&quot;style2&quot; placeholder=&quot;Type: bold strike red&quot;&gt;&lt;br/&gt;
+     &lt;input ng-model=&quot;style3&quot; placeholder=&quot;Type: bold strike red&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用导航和路由构件应用－第二部分]]></title>
+    <link href="http://www.hpmczz.com/14595039804934.html"/>
+    <updated>2016-04-01T17:46:20+08:00</updated>
+    <id>http://www.hpmczz.com/14595039804934.html</id>
+    <content type="html"><![CDATA[
+<p>我们使用导航和路由构建了一个基础的应用，如果你已经完成了第一部分，下面我们使用一些高级的功能扩充这个应用。</p>
+
+<p>这个教程我们将维护应用内导航状态来构建一个基础的Todos系统。</p>
+
+<h5 id="toc_0">改变视图</h5>
+
+<p>首先修改Home视图现实一个Todos的列表，我们可以通过改变<code>app.home</code>状态申明来实现：</p>
+
+<pre><code>    $stateProvider
+                    .state(&#39;app.todos&#39;, {
+                        url: &#39;&#39;,
+                        views: {
+                            todos:{
+                                templateUrl: &#39;todos.html&#39;,
+                                controller:&#39;TodosCtrl&#39;
+                            }
+                        }
+                    })
+</code></pre>
+
+<p>然后需要更新模版里面内容以正确的展示新的列表视图:</p>
+
+<pre><code>    &lt;ion-nav-bar class=&quot;bar-positive&quot;&gt;
+    &lt;/ion-nav-bar&gt;
+    
+    &lt;ion-tabs class=&quot;tabs-positive&quot;&gt;
+    
+        &lt;ion-tab icon=&quot;ion-home&quot; ui-sref=&quot;app.todos&quot;&gt;
+            &lt;ion-nav-view name=&quot;todos&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
+        
+        &lt;ion-tab icon=&quot;ion-help&quot; ui-sref=&quot;app.help&quot;&gt;
+            &lt;ion-nav-view name=&quot;help&quot;&gt;&lt;/ion-nav-view&gt;
+        &lt;/ion-tab&gt;
+        
+    &lt;/ion-tabs&gt;
+</code></pre>
+
+<p>当然我们也需要在状态中注册的模版：</p>
+
+<pre><code>    &lt;ion-view title=&quot;Todos&quot;&gt;
+        &lt;ion-content&gt;
+            &lt;ion-list&gt;
+                &lt;ion-item ng-repeat=&quot;todo in todos&quot; class=&quot;item item-icon-right&quot;&gt;
+                    &lt;span ng-class=&quot;{done: todo.done}&quot;&gt; {{ todo.title }} &lt;/span&gt;
+                &lt;/ion-item&gt;
+            &lt;/ion-list&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+</code></pre>
+
+<p>这和第一部分里面使用路由一样，如果你还不太了解，请参考第一部分。</p>
+
+<p>我们有一个列表，但是没有任何数据。现在让我制造一些数据：</p>
+
+<pre><code>    app.controller(&quot;TodosCtrl&quot;, function($scope){
+        $scope.todos = [
+            {title: &quot;Take out the trash&quot;, done: true},
+            {title: &quot;Do laundry&quot;, done: false},
+            {title: &quot;Start cooking dinner&quot;, done: false}
+        ];  
+    });
+</code></pre>
+
+<p>当我们刷新页面的时候，一些todos出现了！这在Angular标准中很常见。我们添加一些简单的样式使todos更加显眼：</p>
+
+<pre><code>    .done {
+        text-decoration: line-through;
+    }
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用导航和路由构件应用－第一部分]]></title>
+    <link href="http://www.hpmczz.com/14594927899232.html"/>
+    <updated>2016-04-01T14:39:49+08:00</updated>
+    <id>http://www.hpmczz.com/14594927899232.html</id>
+    <content type="html"><![CDATA[
+<p>这是使用Ionic的导航和路由系列文章的开始。我们从简单的开始，首先创建一个应用可以再tabs之间切换。接着， 我们将使用一个完整的todo应用体验这些功能，并且展示一些Ionic的提供的高级路由功能。</p>
+
+<h5 id="toc_0">为什么需要路由</h5>
+
+<p>当一个应用很小的时候，很容易保存当前事物的状态。只有很少的一些视图，很容易在应用中跟踪和观察数据流的传递。</p>
+
+<p>当应用逐渐变大并且复杂的时候，这些事情变得复杂。作用域从哪里开始？应该渲染哪个模版？从哪里开始渲染模版？怎么嵌入到详细的视图中？如何从一个详情试图中切换tab并且返回？</p>
+
+<p>一些问题涌现出来，需要编写大量模版代码以解决这些问题。实质上，我们可以编写状态机来解决这个问题。这就使Ionic导航和angular-ui-router出现以解决这些问题。</p>
+
+<h5 id="toc_1">开始</h5>
+
+<p>我们从最简单的实现开始：使用Ionic路由显示一个视图。在这个基础上，我们慢慢的实现一个完整应用中更多其他的功能。</p>
+
+<p>显示一个单一的视图HTML代码：</p>
+
+<pre><code>&lt;html ng-app=&quot;myApp&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width&quot;&gt;
+    &lt;title&gt;ToDo&lt;/title&gt;
+    &lt;link href=&quot;lib/ionic/css/ionic.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;lib/ionic/js/ionic.bundle.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;js/app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ion-nav-view&gt;&lt;/ion-nav-view&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>ion-nav-view</code>是容器。Ionic路由将在代码中查找这个指令以插入模版。<br/>
+<code>ion-nav-view</code>支持层级，叫做视图，和其他的功能，这些功能会在下面的文章中深入讨论。</p>
+
+<blockquote>
+<p><b>注意：</b>如果你熟悉<code>angular-ui-router,ion-nav-view</code>等同于<code>ui-view</code>。在这个基础上，<code>ion-nav-view</code>提供动画，历史和贡多功能。</p>
+</blockquote>
+
+<p>操作HTML简单而有趣：</p>
+
+<pre><code>    var app = angular.module(&#39;myApp&#39;, [&#39;ionic&#39;]);
+    app.config(function($stateProvider, $urlRouterProvider){
+    
+     $urlRouterProvider.otherwise(&#39;/&#39;);
+     $stateProvider
+                    .state(&#39;home&#39;,{
+                                    url: &#39;/&#39;,
+                                    template: &#39;&lt;h1&gt;Hello&lt;/h1&gt;&#39;
+                    });
+    });
+</code></pre>
+
+<p>开始的时候，我们设置一个标准的Angular应用，在我们的config回调中，我们注入<code>$stateProvider</code>和<code>$urlRouterProvider</code>。这些提供了基础回调以配置应用的状态机。</p>
+
+<p>在配置回调中，我们可以开始申明状态。在这里，我们只是声明了一个单一的状态，并且关联一个模版。当这些执行的时候，这个模版就是诸如注入到<code>ion-nav-view</code>位于父模版的位置。</p>
+
+<p>我们也可以使用外部模版以分离代码。</p>
+
+<pre><code>    $stateProvider.state(&#39;home&#39;,{
+        url: &#39;/&#39;,
+        templateUrl: &#39;templates/hello.html&#39;
+    });
+</code></pre>
+
+<p>改变使用<code>templateUrl</code>声明的状态将导致Angular去寻找<code>$templateCache</code>里面的模版。如果它不再缓存中，它将从服务端请求并保存到缓存中。</p>
+
+<blockquote>
+<p>在下面的代码中，我们使用<code>text/ng-template</code>标签和一个页面名字的id。这将会添加模版到模版缓存中，并且保存请求。</p>
+</blockquote>
+
+<h5 id="toc_2">添加一些导航</h5>
+
+<p>只有一种状态的时候路由显得不是那么有用处。让我们修改模版以使用选项卡：</p>
+
+<pre><code>&lt;ion-tabs class=&quot;tabs-positive&quot;&gt;
+    &lt;ion-tab icon=&quot;ion-home&quot; ui-sref=&quot;tabs.home&quot;&gt;
+        &lt;ion-nav-view name=&quot;home&quot;&gt;&lt;/ion-nav-view&gt;
+    &lt;/ion-tab&gt;
+    
+    &lt;ion-tab icon=&quot;ion-help&quot; ui-sref=&quot;tabs.help&quot;&gt;
+         &lt;ion-nav-view name=&quot;help&quot;&gt;&lt;/ion-nav-view&gt;
+    &lt;/ion-tab&gt;
+&lt;/ion-tabs&gt;
+</code></pre>
+
+<p>写了很多，让我们分解一下。</p>
+
+<p>开始，我们使用Ionic的<code>ion-tabs</code>指令。如果你不熟悉，轻参考<a href="http://ionicframework.com/docs/api/directive/ionTabs/">文档</a>。</p>
+
+<p><code>ion-nav-view</code>指令移动到tab指令内部。这里有两件事需要注意。第一个，我们添加了一个<code>name</code>属性到<code>ion-nav-view</code>。现在我们模版中的<code>ion-nav-view</code>在同一级中多出一个层级。没有这些，路由不能确定插入模版的正确位置，导致应用中事件无法触发，产生bug。</p>
+
+<p>第二个，tab关联一个<code>ui-sref</code>指令。这个类似<code>href</code>锚点，指定我们需要转换的状态。</p>
+
+<p>要转换到其他状态，我们需要添加一个，代码如下：</p>
+
+<pre><code>$stateProvider
+                .state(&#39;home&#39;,{
+                                    url: &#39;/&#39;,
+                                    views:{
+                                        home:{
+                                            templateUrl: &#39;home.html&#39;
+                                        }
+                                    }       
+                })
+                
+                .state(&#39;help&#39;,{
+                                    url: &#39;/help&#39;,
+                                    views:{
+                                        help:{
+                                            templateUrl: &#39;help.html&#39;
+                                        }
+                                 }
+               });
+</code></pre>
+
+<p>命名的视图通过状态申明轻松改变。我们添加一个<code>views</code>的键值，这个键对应的值是所有子视图的对象。我们使用带有相同参数的对象申明同一个状态，否则申明不同的状态。更多信息请参考<a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">angular-ui-router文档</a></p>
+
+<p>不要忘记我们的模版，让我们在<code>body</code>的末尾添加如下代码:</p>
+
+<pre><code>&lt;script type=&quot;text/ng-template&quot; id=&quot;home.html&quot;&gt;
+    &lt;ion-view title=&quot;Home&quot;&gt;
+        &lt;ion-content class=&quot;padding&quot;&gt;
+            &lt;h2&gt; Home Page &lt;/h2&gt;
+            &lt;p&gt;Here&#39;s the main route for the app.&lt;/p&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+&lt;/script&gt;
+
+&lt;script type=&quot;text/ng-template&quot; id=&quot;help.html&quot;&gt;
+    &lt;ion-view title=&quot;Help&quot;&gt;
+        &lt;ion-content class=&quot;padding&quot;&gt;
+            &lt;h2&gt;Using the app&lt;/h2&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?
+            &lt;/p&gt;
+        &lt;/ion-content&gt;
+    &lt;/ion-view&gt;
+&lt;/script&gt;
+
+</code></pre>
+
+<p>到了这里，我们有一个简单的带tab的应用。在导航栈中拥有一个头部视图是非常不错的，并且可以对应更新头部，让我们添加头部。</p>
+
+<h5 id="toc_3">添加头部</h5>
+
+<p>添加一个头部视图是很简单的。在<code>ion-tabs</code>指令前面添加如下代码：</p>
+
+<pre><code>    &lt;ion-nav-bar class=&quot;bar-positive&quot;&gt;&lt;/ion-nav-bar&gt;
+</code></pre>
+
+<p>现在运行这个应用，我们可以看到屏幕顶部的头部视图，并且有正确的标题。标题由<code>ion-view</code>的<code>title</code>指定。</p>
+
+<h5 id="toc_4">总结</h5>
+
+<p>我们由一个基础的应用，这个应用的视图由指定的状态机控制。在第二节中，我们将添加一些动态的内容到视图中，并且创建一个列表－导航详情层级，继续学习吧。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JSContext 参考]]></title>
+    <link href="http://www.hpmczz.com/14529142761542.html"/>
+    <updated>2016-01-16T11:17:56+08:00</updated>
+    <id>http://www.hpmczz.com/14529142761542.html</id>
+    <content type="html"><![CDATA[
+<h3 id="toc_0">JScontext</h3>
+
+<p>JSContext类继承于NSObject，iOS7以后在JavaScriptCore框架内声明，使用时需要导入<code>JavaScriptCore.framework</code>框架，并添加以下代码：</p>
+
+<pre><code>#import &lt;JavaScriptCore/JavaScriptCore.h&gt;
+</code></pre>
+
+<p><code>JSContext</code>对象表现为一个JavaScript执行环境。你可以在Objective-c或者Swift中创建并且使用JavaScript执行环境去执行JavaScript脚本，访问JavaScript中定义的值或者做一些计算，创建JavaScript中的原生对象，方法或者函数。</p>
+
+<h4 id="toc_1">创建JavaScript执行环境</h4>
+
+<pre><code>- (instancetype)init
+</code></pre>
+
+<p>这个初始化方法创建一个JavaScript执行环境并且伴随着一个新的、独立的虚拟机（一个<code>JSVirtualMachine</code>对象）。</p>
+
+<p>在不同的虚拟机内的执行环境不能传递JavaScript值（JSValue对象）。要创建一个共享虚拟机的执行环境，请使用<code>initWithVirtualMachine:</code>方法。</p>
+
+<pre><code>- (instancetype)initWithVirtualMachine:
+</code></pre>
+
+<p>指定一个虚拟机的方式创建一个新的JavaScript执行环境。</p>
+
+<p>每一个执行环境默认都有一个独立的虚拟机（一个<code>JSVirtualMachine</code>对象）。在不同的虚拟机内的执行环境不能传递JavaScript值。，使用同一个虚拟机创建的不同的JavaScript执行环境，这些执行环境里可以相互传递<code>JSVaule</code>对象。</p>
+
+<h4 id="toc_2">执行脚本</h4>
+
+<pre><code>- (JSValue *)evaluateScript:(NSString *)script
+</code></pre>
+
+<p>在任何地址执行脚本并且添加函数和方法定义到执行环境的全局对象中。放回脚本最后产生的值。脚本执行可能返回JavaScript中的<code>undefined</code>对象。</p>
+
+<pre><code>- (JSValue *)evaluateScript:(NSString *)script
+          withSourceURL:(NSURL *)sourceURL
+</code></pre>
+
+<p>这个方法iOS8.0后可以使用，<code>sourceURL</code>仅仅是提供一些信息，调试过程中异常报告中可能会使用到这个URL。</p>
+
+<h4 id="toc_3">在运行环境中检查回调状态</h4>
+
+<pre><code>+ (JSContext *)currentContext
+</code></pre>
+
+<p>返回当前执行JavaScript代码的执行环境。如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript代码的<code>JSContext</code>对象。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<pre><code>+ (JSValue *)currentThis
+</code></pre>
+
+<p>返回当前执行的JavaScrip代码中<code>this</code>关键字的值。如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript代码的<code>this</code>关键字表现为<code>JSValue</code>对象的值。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<pre><code>+ (NSArray *)currentArguments
+</code></pre>
+
+<p>返回当前回调的参数，如果里面没有JavaScript原生代码的调用返回<code>nil</code>。</p>
+
+<p>在Objective－C或者Swift回调或者在这些回调的方法中调用这个方法以获取正在执行JavaScript回调的参数，表现为包含<code>JSValue</code>对象的值的数组。</p>
+
+<p>如果当前的代码没有从JavaScript中回调，这个方法将返回<code>nil</code>。</p>
+
+<h4 id="toc_4">JavaScript全局状态</h4>
+
+<pre><code>@property(readonly, strong) JSValue *globalObject
+</code></pre>
+
+<p>执行环境关联的JavaScript全局对象（只读）。</p>
+
+<p>在web浏览器中，JavaScript执行环境的全局对象是浏览器窗口对象（JavaScript的<code>window</code>对象）。在web浏览器以外使用，执行缓降的全局对象扮演着类似的角色，区分不同执行环境中的JavaScript命名空间。在脚本中的全局变量可以使用全局对象的下标字段方法。你可以使用这个<code>JSVaule</code>对象访问它们。或者通过<a href="#subscripts">使用下标访问JavaScript全局状态</a></p>
+
+<p>在原始的WebKit中JSContext实例，这个方法返回一个<code>windowProxy</code>对象的引用。</p>
+
+<pre><code>@property(strong) JSValue *exception
+</code></pre>
+
+<p>执行脚本中抛出的JavaScript异常</p>
+
+<p>在执行从JavaScript中的回调Objective-C或者Swift block或者方法中，执行环境会保留这个属性之前的值然后将它的值设置为<code>nil</code> 。等代回调执行完成，执行环境读取新的<code>exception</code>属性值，如果这个值不为空，执行环境将这个值当做异常抛出当做JavaScript中回调的结果。当读取到这个属性（可能抛出一个JavaScript异常），执行环境将恢复这个属性的值。</p>
+
+<pre><code>默认上说，JavaScriptCore将任何捕获到的异常值赋值给这个属性。所以你可以检查这个属性值了解JavaScript函数调用过程中产生的异常。要改变默认的异常处理，使用`exceptionHandler`属性。
+
+ @property(copy) void (^exceptionHandler)( JSContext *context, JSValue *exception)
+</code></pre>
+
+<p>当执行JavaScript脚本的时抛出异常时的回调。<code>context</code>异常的原始执行环境。<code>exception</code>JavaScript抛出的异常。</p>
+
+<p>异常处理回调储存的默认值<code>exception</code>参数值到执行环境的<code>exception</code>属性中。默认的行为，JavaScript中的回调发生异常时默认的行为是抛出异常。将这个值设置成nil将忽略异常。</p>
+
+<pre><code>@property(readonly, strong) JSVirtualMachine *virtualMachine
+</code></pre>
+
+<p>执行环境所属的JavaScript虚拟机（只读）</p>
+
+<p>创建一个指定虚拟机的执行环境，以允许JavaScript值在不同的，共享同一个虚拟机的执行环境中传递，使用<code>initWithVirtualMachine:</code>初始化方法。</p>
+
+<pre><code>@property(copy) NSString *name
+</code></pre>
+
+<p>一个描述执行环境的名字。为了远程调试时也提供执行环境的名字。iOS8之后方可使用。</p>
+
+<p><h4 id="subscripts"> 使用下标访问JavaScript全局状态</h4></p>
+
+<pre><code>- (JSValue *)objectForKeyedSubscript:(id)key
+</code></pre>
+
+<p>返回在执行环境全局对象中指定JavaScript属性的值，支持下标的写法。<code>key</code>执行环境全局对象中JavaScript属性的名字。</p>
+
+<p>这个方法首先用<code>key</code>参数中构造一个<code>JSValue</code>对象，然后使用这个对象在JavaScript执行环境全局对象中寻找属性的名字。</p>
+
+<pre><code>- (void)setObject:(id)object
+forKeyedSubscript:(NSObject&lt;NSCopying&gt; *)key
+</code></pre>
+
+<p>设置执行环境的全局对象指定属性的值，支持下标写法。<code>object</code>是需要设置JavaScript属性的值，<code>key</code>是在全局JavaScript对象中属性的名字。</p>
+
+<p>这个方法首先用<code>key</code>参数中构造一个<code>JSValue</code>对象，然后使用这个对象在JavaScript执行环境全局对象中设置属性的值。</p>
+
+<p>使用这个方法（或者Objective－C下标语法）以桥接JavaScript中的原生的对象或者参数。</p>
+
+<p>举个例子， 下面的代码使用Objective-C闭包创建了一个JavaScript函数：</p>
+
+<pre><code>JSContext *context = [[JSContext alloc] init];
+context[@&quot;makeNSColor&quot;] = ^(NSDictionary *rgb){
+    NSNumber *red = rgb[@&quot;red&quot;];
+    float r = red.floatValue;
+    red = rgb[@&quot;green&quot;];
+    float g = red.floatValue;
+    red = rgb[@&quot;blue&quot;];
+    float b = red.floatValue;
+    return [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];
+};
+</code></pre>
+
+<h4 id="toc_5">使用C JavaScript API</h4>
+
+<pre><code>@property(readonly) JSGlobalContextRef JSGlobalContextRef
+</code></pre>
+
+<p>返回JavaScript执行环境的C表现形式，详细请参考｀<code>JSContextRef.h</code>。</p>
+
+<pre><code>+ (JSContext *)contextWithJSGlobalContextRef:(JSGlobalContextRef)jsGlobalContextRef
+</code></pre>
+
+<p>从一个等价的C表现形式的JavaScript执行环境中创建一个JavaScript执行环境对象。返回JavaScript执行环境对象表现为同一个执行环境。更多信息请参考<code>JSContextRef.h</code>。</p>
+
+<p>原文地址：<a href="https://developer.apple.com/library/ios/documentation/JavaScriptCore/Reference/JSContext_Ref/index.html">https://developer.apple.com/library/ios/documentation/JavaScriptCore/Reference/JSContext_Ref/index.html</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[js与OC互相调用的问题]]></title>
+    <link href="http://www.hpmczz.com/14527796732409.html"/>
+    <updated>2016-01-14T21:54:33+08:00</updated>
+    <id>http://www.hpmczz.com/14527796732409.html</id>
+    <content type="html"><![CDATA[
+<h4 id="toc_0">js 调用 OC 中的一个方法 (一)</h4>
+
+<p>html代码如下：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p onclick=&quot;myalert(&#39;aaaa&#39;);&quot;&gt;点击&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>上面这段html代码中没有JS实现<code>myalert</code>方法，需要客户端实现<code>myalert</code>方法，以实现js中调用OC的一段代码，iOS7后导入<code>JavaScriptCore.framework</code>，然后在webview代理方法<code>webViewDidFinishLoad:</code>方法中实现如下，即可在当前js执行环境中注册一个<code>myalert</code>的方法。</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+context[@&quot;myalert&quot;] = ^(){
+   NSArray *args = [JSContext currentArguments];
+   for (NSString *arg in args) {
+       NSLog(@&quot;%@&quot;, arg);
+   }
+};
+}
+</code></pre>
+
+<h4 id="toc_1">js 调用 OC 中的一个方法（二）</h4>
+
+<p>html代码如下：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p onclick=&quot;myobject.myalert(&#39;aaaa&#39;);&quot;&gt;点击&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>这里的点击事件需要调用一个对象<code>myobject</code>的<code>myalert</code>方法，而这个<code>myobject</code>对象并没有js实现，于是我们需要实现<code>myobjct</code>对象，然后再指定<code>myobject</code>的<code>myalert</code>方法，在当前执行环境中添加一个对象，并且为该对象注册方法，代码如下：</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+    JSValue *value = [JSValue valueWithNewObjectInContext:context];
+    context[@&quot;myobject&quot;] = value;
+    value[@&quot;myalert&quot;] = ^(){
+        NSArray *args = [JSContext currentArguments];
+        for (NSString *arg in args) {
+            NSLog(@&quot;%@&quot;, arg);
+        }
+    };
+    }
+</code></pre>
+
+<blockquote>
+<p>注意： 注册对象和方法不一定是需要在<code>webViewDidFinishLoad</code>代理中实现，根据业务需要也可以在<code>webViewDidStartLoad</code>（window.onload()事件）也可以实现，在哪里实现取决于业务逻辑需求。上面的例子中点击事件是加载完成后点击触发事件，所以在这两个代理中其中任意一个实现即可。</p>
+</blockquote>
+
+<h4 id="toc_2">js 调用 OC 中的一个方法（三）</h4>
+
+<p>通过JSExport协议实现</p>
+
+<h4 id="toc_3">OC调用js代码(一)</h4>
+
+<p>在webview加载开始和结束时调用一个alert，代码如下</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+[webView stringByEvaluatingJavaScriptFromString:@&quot;alert(&#39;结束加载&#39;);&quot;];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+   [webView stringByEvaluatingJavaScriptFromString:@&quot;alert(&#39;开始加载&#39;);&quot;];
+}
+</code></pre>
+
+<p>OC调用js代码(二)</p>
+
+<p>通过js执行环境调用js代码，代码片段如下：</p>
+
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView{
+JSContext *context = [webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+[context evaluateScript:@&quot;alert(&#39;hello world&#39;);&quot;];
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Address Book编程指南 （二）]]></title>
+    <link href="http://www.hpmczz.com/14525211633547.html"/>
+    <updated>2016-01-11T22:06:03+08:00</updated>
+    <id>http://www.hpmczz.com/14525211633547.html</id>
+    <content type="html"><![CDATA[
+<h3 style="text-align:center">快速开始</h3>
+
+<p>在这个教程中，你将创建一个简单的应用程序供用户从联系人列表中选择一个人然后展示选择这个人的名字和电话号码。</p>
+
+<h4 id="toc_0">创建和配置项目</h4>
+
+<ol>
+<li> 打开Xcode，使用<code>Single View Application</code>模版创建一个新的工程。</li>
+<li> 链接Address Book UI和Address Book框架到你的工程中。</li>
+</ol>
+
+<blockquote>
+<p><b>重要：</b>如果你没有链接这两个框架程序将构建失败（链接错误）。</p>
+</blockquote>
+
+<h4 id="toc_1">创建UI和头文件</h4>
+
+<p>当你创建用户接口的时，你将知道Xcode优势去声明需要的事件和属性，为你创建了大部分的头文件。</p>
+
+<ol>
+<li> 打开main storyboard文件（Main.storyboard)。</li>
+<li> 从资源库面板拖动一个按钮和两个标签到视图中。像图1-1所示排版。</li>
+<li> 打开assistant editor。</li>
+<li> 连接按钮到一个视图控制器中的<code>showPicker:</code>的事件。</li>
+<li><p>连接两个标签到视图控制器中两个新的属性，一个叫做firstName，另一个为phoneNumber。</p>
+
+<p>图 1-1 用户界面布局</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Address Book编程指南 （一）]]></title>
+    <link href="http://www.hpmczz.com/14525196688586.html"/>
+    <updated>2016-01-11T21:41:08+08:00</updated>
+    <id>http://www.hpmczz.com/14525196688586.html</id>
+    <content type="html"><![CDATA[
+<h3 style="text-align:center">简介</h3>
+
+<p>iOS中Address Book提供保存联系人信息和其它个人信息到一个集中的数据库中，并且可以在应用之间分享这些信息，这个技术有一些部分组成：</p>
+
+<ul>
+<li>  Address Book框架提供访问联系人信息。</li>
+<li>  Address Book UI框架提供显示信息的用户接口。</li>
+<li>  Address BOok 数据库保存信息。</li>
+<li>  Contacts应用提供用户访问联系人信息的方式。</li>
+</ul>
+
+<p>这篇文档主要涉及Address Book技术的概念和阐述了可以执行的一些基本操作。当你添加这项技术到你的应用中，用户可以使用联系人信息到其它的应用中，例如Mail和Text，在你的应用中。这篇文档主要告诉你如何使用以下操作：</p>
+
+<ul>
+<li>  访问用户地址簿数据库</li>
+<li>  提示用户以获取联系人信息</li>
+<li>  显示联系人信息给用户</li>
+<li>  修改用户地址簿数据库</li>
+</ul>
+
+<blockquote>
+<p><b>注意：</b>开发者在Mac OS X上使用地址簿和在iOS中使用这个技术是不相同的。</p>
+</blockquote>
+
+<h3 id="toc_0">文档的组织</h3>
+
+<p>这个文档包含以下章节：</p>
+
+<ul>
+<li>  <a href="">快速开始教程</a>带你了解如何创建一个使用Address Book技术简单的应用程序。</li>
+<li>  <a href="">创建回调：使用记录和属性</a>描述了如何创建一个地址簿对象，如何创建用户和组纪录，和如何访问和设置属性。</li>
+<li>  <a href="">用户接口：提示以显示数据</a>描述了如何使用Address Book UI框架提供的视图显示联系人，让用户选择一个联系人，创建一个联系人，或者编辑一个联系人。</li>
+<li>  <a href="">直接交互： 程序访问数据库</a>描述了应用中如何直接读取和写入联系人信息。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NSURLConnection 和 NSURLSession]]></title>
+    <link href="http://www.hpmczz.com/14523982237123.html"/>
+    <updated>2016-01-10T11:57:03+08:00</updated>
+    <id>http://www.hpmczz.com/14523982237123.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>以下请真机运行，测试环境iOS9.1</p>
+</blockquote>
+
+<h4 id="toc_0">后台下载</h4>
+
+<h5 id="toc_1">NSURLConnection</h5>
+
+<p>使用<code>NSURLConnection</code>执行下载任务时，由于下载文件可能比较大，一般采取写入本地文件的办法，否则可能会大量的占用内存，这时就需要实现其数据代理方法。</p>
+
+<p>当程序进入后台时，下载任务会停止，若应用在请求超时时间内唤醒下载任务可继续（在网络可用的情况下，不考虑网络异常），否则唤醒应用时调用代理方法<code>connection: didFailWithError:</code>。</p>
+
+<blockquote>
+<p>默认的<code>NSURLConnection</code>代理方法调用是在<code>NSURLConnection</code>发送<code>start</code>消息的线程上调用的。</p>
+</blockquote>
+
+<h5 id="toc_2">NSURLSession</h5>
+
+<p>请点击下载代码。</p>
+
+<p>使用<code>NSURLSession</code>执行下载任务时， 程序进入后台，下载任务不会停止，会一直执行直到下载完成为止。后台下载完成后会依次调用代理方法：<br/>
+<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>,<br/>
+<code>URLSession:task:didCompleteWithError:</code>，和<code>URLSessionDidFinishEventsForBackgroundURLSession</code>。下载出错时会调用<code>URLSession:task:didCompleteWithError:</code>。即使程序崩溃，下一次进入程序时会自动调用<code>URLSession:task:didCompleteWithError:</code>。</p>
+
+<blockquote>
+<p>后台下载完成时，还会调用UIApplication的代理方法：<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>。</p>
+
+<p>如果程序在下载完成前返回前台则只会调用<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>和<code>URLSession:task:didCompleteWithError:</code>方法。</p>
+
+<p>对于多个下载任务在设置session配置对象的时候请设置不同的唯一标示，如果设置相同的唯一标示，结果时未知的。</p>
+</blockquote>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[URL Session编程指南－使用NSURLSession]]></title>
+    <link href="http://www.hpmczz.com/14523062727801.html"/>
+    <updated>2016-01-09T10:24:32+08:00</updated>
+    <id>http://www.hpmczz.com/14523062727801.html</id>
+    <content type="html"><![CDATA[
+<p><code>NSURLSession</code>类和相关的类提供API以通过HTTP下载内容。这些API提供了丰富的代理方法集合以支持认证和当应用不在运行状态时执行后台下载，或者在iOS中，当应用暂停时。</p>
+
+<p>使用<code>NSURLSession</code>API，你可以创建一系列的会话，每一个会话对应相关数据传输任务组。举个例子，如果你在编写一个web浏览器，你可能需要给每一个标签或者窗口创建一个会话。在每个会话内，你可能会添加一系列的任务，每一个任务执行一个特定URL的请求（和接下来的一些URLs请求如果原始URL返回一个HTTP重定向）。</p>
+
+<p>像大部分APIs一样，<code>NSURLSession</code>API是高度异步的。如果你使用默认的系统提供的代理方法，你必须提供一个结束回调block以获取当传输成功结束或者传输错误时返回的数据。另外，如果你提供了自定义的代理对象，当从服务器接收到数据时任务对象调用代理方法（或者文件下载，当传输结束时）。</p>
+
+<blockquote>
+<p><b>注意：</b>结束回调主要是作为使用自定义代理的替代方法。如果你创建一个任务使用结束回调的方法，响应的代理方法和数据传输的方法都不会调用。</p>
+</blockquote>
+
+<p><code>NSURLSession</code>API提供状态和进度属性，作为附加信息提供给代理。支持取消，重新开始（继续），和暂停任务。并且提供继续暂停，取消或者未完成的下载任务。</p>
+
+<h4 id="toc_0">URL Session 概念</h4>
+
+<p>一个会话中的任务的行为取决于三点：会话的类型（由创建时使用的配置对象的类型决定），任务类型，当任务创建时应用是否是在前台运行中。</p>
+
+<h5 id="toc_1">会话类型</h5>
+
+<p><code>NSURLSession</code>API提供三种类型的会话，由创建会话时使用的配置对象的类型决定。</p>
+
+<ul>
+<li>  默认的会话行为和其它下载URLs的基础方法基本相同。使用磁盘缓存和用户钥匙串中的认证信息。</li>
+<li>  短暂的会话不保存任何数据到磁盘；所有的缓存，证书存储，等等都保存会话关联的RAM中。因此当应用程序会话销毁时，这些也自动的清除。</li>
+<li>后台会话和默认的会话类似，除了一个单独的进程处理数据的传输。后台会话又一些额外的限制，在后面的介绍中说明。</li>
+</ul>
+
+<h5 id="toc_2">任务的类型</h5>
+
+<p>在一个会话中，<code>NSURLSession</code>类提供三种类型的任务：数据任务，下载任务，上传任务。</p>
+
+<ul>
+<li>  数据任务使用<code>NSData</code>对象发送和接收数据。数据任务一般短暂并且经常交互使用从服务器请求数据。数据任务在返回数据时可能一段一段数据的返回，或通过一个结束回调所有的一起返回。</li>
+<li>下载任务以文件的形式接收数据，并且支持当应用没有运行时后台下载。</li>
+<li>上传任务以文件的形式发送数据，并且支持当应用没有运行时后台上传。</li>
+</ul>
+
+<h5 id="toc_3">后台传输注意事项</h5>
+
+<p>当程序暂停时，<code>NSURLSession</code>类支持后台传输。后台传输仅支持使用后台会话配置对象（<code>backgroundSessionConfiguration:</code>）创建的会话。</p>
+
+<p>后台会话由于实际的传输是由单独的一个进程执行的，并且重启应用进程很耗费性能，一些功能是不可用的，于是有下面列举的一些限制：</p>
+
+<ul>
+<li>会话必须提供一个代理以递送事件。（上传下载，代理行为是一样的像进程内传输一样）</li>
+<li>仅HTTP和HTTPS协议支持（不支持自定义协议）</li>
+<li>重定向会跟随重定向</li>
+<li>上传任务仅支持从文件上传（上传数据对象或者流对象在程序结束时会退出）。</li>
+<li>如果后台传输时在应用在后台的时候创建的，配置对象的<code>discretionary</code>属性被看成是<code>true</code>。</li>
+</ul>
+
+<blockquote>
+<p><b>注意：</b>iOS8和OS X10.10之前，在后台会话中不支持数据任务。</p>
+</blockquote>
+
+<p>iOS和OS X应用程序重新启动的方式有一些细微的差别。</p>
+
+<p>在iOS中，当后台传输完成获取需要证书，如果应用已经不在运行状态了，iOS自动重启应用然后在<code>UIApplicationDelegate</code>对象中调用<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>方法，这个调用提供使应用程序重启的会话的标示。应用程序中应该保存结束回调，使用这个会话标示创建一个后台配置对象，然后使用这个配置对象创建一个会话。新创建的会话会自动关联准备进行的后台活动。然后，当会话结束最后一个下载任务时，会发送一个<code>URLSessionDidFinishEventsForBackgroundURLSession:</code>消息。会话代理方法然后会调用保存的结束的处理函数。</p>
+
+<p>在iOS和OS X中，当用户重启应用程序时，应用上一次运行时还未完成的任务应当使用相同的标示去创建后台配置对象，然后为配置对象创建一个会话，这些新的会话将自动的关联到持续的后台活动中。</p>
+
+<blockquote>
+<p><b>注意：</b>创建session的时候必须针对每一个标示单独创建一个（标示在创建配置对象的时候指定）。多个会话使用相同的标示结果是预料不到的。</p>
+</blockquote>
+
+<p>如果当应用暂停时有任何任务完成，代理方法<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>会调用并且最近下载的文件路径会作为参数传递。</p>
+
+<p>类似的，如果任何任务需要证书，<code>NSURLSession</code>对象会调用<code>URLSession:task:didReceiveChallenge:completionHandler:</code>方法会调用或者在适当时会调用<code>URLSession:didReceiveChanllenge:completionHandler:</code>方法。</p>
+
+<p>URL加载系统中，如果网络发生错误，在后台会话中上传和下载任务会自动重试。它不需要使用reachability APIs去决定何时重试失败的任务。</p>
+
+<p><a href="https://developer.apple.com/library/ios/samplecode/SimpleBackgroundTransfer/Introduction/Intro.html#//apple_ref/doc/uid/DTS40013416">Simple Background Transfer</a>是如何使用<code>NSURLSession</code>的一个示例程序。</p>
+
+<h5 id="toc_4">生命周期和代理交互</h5>
+
+<p>取决于你要使用<code>NSURLSession</code>类去做什么事情，了解会话的生命周期时很有帮助的，它包括会话和它的代理方法的交互，代理方法调用的顺序，当服务器返回重定向的时应该怎样，当继续一个失败的下载时应该怎样等等。</p>
+
+<p>想要了解更多关于URL会话的生命周期，请阅读<a href="">URL会话生命周期</a>;</p>
+
+<h5 id="toc_5">NSCopying 行为</h5>
+
+<p>会话和任务对象遵行NSCopying协议：</p>
+
+<ul>
+<li>  当应用中复制一个会话或者任务对象，你可以获得同一个对象。</li>
+<li>当应用中复制一个配置对象，你可以获得一个新的对象，你可以独立修改这个对象对原对象不造成影响。</li>
+</ul>
+
+<h4 id="toc_6">代理接口示例</h4>
+
+<p>下面的代码片段以列表1-1种的类接口为基础：</p>
+
+<p>列表1-1 代理接口示例</p>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+typedef void(^CompletionHandlerType)();
+
+@interface MySessionDelegate : NSObject
+
+@property NSURLSession *backgroundSession;
+@property NSURLSession *defaultSession;
+@property NSURLSession *ephemeralSession;
+
+#if TARGET_OS_IPHONE
+@property NSMutableDictionary *completionHandlerDictionary;
+#endif
+
+- (void) addCompletionHandler: (CompletionHandlerType)handler;
+- (void) callCompletionHandlerForSession: (NSString*)identifier;
+
+@end
+</code></pre>
+
+<h4 id="toc_7">创建和配置会话</h4>
+
+<p><code>NSURLSession</code>API提供大量的配置选项：</p>
+
+<ul>
+<li>  支持缓存，cookie，认证和协议的私有存储的特定会话</li>
+<li>授权，绑定到一个指定的请求（task）或者一组请求（session）</li>
+<li>通过URL上传和下载文件，支持分离的数据（文件内容和URL设置元数据）</li>
+<li>指定主机的最大连接数</li>
+<li>在特定时间内整个资源无法下载将触发每个资源超时</li>
+<li>最小和最大TLS版本支持</li>
+<li>自定义代理字典</li>
+<li>控制cookie策略</li>
+<li>控制HTTP管道行为</li>
+</ul>
+
+<p>由于在一个单独的配置对象中都包含大部分设置，你可以重复使用常用的设置。当实例化一个会话对象，你可以指定：</p>
+
+<ul>
+<li>  一个配置对象控制里面的会话和任务的行为</li>
+<li>处理接收数据和其它会话和任务事件的代理对象（可选），例如服务器授权，加载资源的请求是否应当被转换成下载等等。</li>
+</ul>
+
+<p>如果你不指定代理方法，<code>NSURLSession</code>对象使用系统提供的代理对象。在这种情况下，你可以使用<code>NSURLSession</code>的<code>sendAsynchronousRequest:queue:completionHandler:</code>。</p>
+
+<blockquote>
+<p><b>注意：</b>当应用需要执行后台传输，必须得指定一个自定义的代理。</p>
+</blockquote>
+
+<p>实例化会话对象后，除非你创建一个新的会话，否则配置和代理时不能更改的。</p>
+
+<p>列表1-2 示范了如何创建 普通的，短暂的和后台会话</p>
+
+<pre><code>#if TARGET_OS_IPHONE
+    self.completionHandlerDictionary = [NSMutableDictionary dictionary];
+#endif
+    
+    /* 创建一些配置对象。*/
+    NSURLSessionConfiguration *backgroundConfigurationObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@&quot;myBackgroundSessionIdentifier&quot;];
+    NSURLSessionConfiguration *defaultConfigurationObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *ephemeralConfigurationObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    
+    /* 配置默认会话缓存行为。
+       请注意iOS需要一个相对`~/Library/Caches`目录缓存路径，
+       OS X中需要一个绝对的路径。
+     */
+#if TARGET_OS_IPHONE
+    NSString *cachePath = @&quot;/MyCacheDirectory&quot;;
+    NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *myPath = [myPathList objectAtIndex:0];
+    
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *fullCachePath = [[myPath stringByAppendingPathComponent:bundleIdentifier] stringByAppendingPathComponent:cachePath];
+    NSLog(@&quot;Cache path:%@&quot;, fullCachePath);
+#else
+    NSString *cachePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;/nsurlsessiondemo.cache&quot;];
+    NSLog(@&quot;Cache path:%@&quot;, cachePath);
+#endif
+    
+    NSURLCache *myCache = [[NSURLCache alloc] initWithMemoryCapacity:16384 diskCapacity:268435456 diskPath:fullCachePath];
+    defaultConfigurationObject.URLCache = myCache;
+    defaultConfigurationObject.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
+    
+    /* 使用配置对象创建会话*/
+    self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigurationObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigurationObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigurationObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    
+</code></pre>
+
+<p>除了后台配置以外，你可以使用会话配置对象去创建其它的会话。（你不能重复使用后台会话配置是因为两个会话对象使用同一个标示结果是未知的。）</p>
+
+<p>你也可以在任何时候安全的修改配置对象。当你创建一个会话，这个会话会将配置对象深拷贝一份，所有修改仅影响新的会话，对于已经存在的会话不受影响。举个例子，你可以创建一个会话仅支持Wi—Fi连接：</p>
+
+<p>列表1-3 使用同一个配置对象创建另一个会话</p>
+
+<pre><code>ephemeralConfigurationObject.allowsCellularAccess = NO;
+    //...
+    NSURLSession *ephemetalSessionWiFiOnly = [NSURLSession sessionWithConfiguration:ephemeralConfigurationObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+</code></pre>
+
+<h4 id="toc_8">使用系统提供的代理获取资源</h4>
+
+<p>最直接使用<code>NSURLSession</code>的方法是使用<code>sendAsynchronousRequest:queue:completionHandler:</code>方法。使用这个方法，只需要提供两段代码即可：</p>
+
+<ul>
+<li>  创建配置对象及使用配置对象创建会话的代码</li>
+<li>当数据完成接收时结束处理回调函数。</li>
+</ul>
+
+<p>使用系统提供的代理，你可以使用一行代码即可获取一个特定URL的请求，列表1-4展示了这种方式。</p>
+
+<blockquote>
+<p><b>注意：</b>系统提供的代理在自定义网络行为很有限。如果应用需要访问特定的URL资源，例如自定义验证和后台下载，使用这种方式就不合适了。需要更多的处理你需要实现全部的代理，请参考<a href="">URL会话的生命周期</a></p>
+</blockquote>
+
+<p>列表  1-4 使用系统提供的代理方法请求资源</p>
+
+<pre><code>NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration:defaultConfigurationObject delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    [[delegateFreeSession dataTaskWithURL:[NSURL URLWithString:@&quot;https://www.example.com&quot;] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSLog(@&quot;Got response %@ with error %@.\n&quot;, response, error);
+        NSLog(@&quot;DATA:\n%@\nEND DATA\n&quot;,
+              [[NSString alloc] initWithData: data
+                                    encoding: NSUTF8StringEncoding]);
+    }] resume];
+</code></pre>
+
+<h4 id="toc_9">使用自定义的代理获取数据</h4>
+
+<p>如果你使用自定义的代理获取数据，代理必须至少实现以下方法：<br/>
+*   <code>URLSession:dataTask:didReceiveData:</code>提供任务所请求的数据，每次一部分。<br/>
+* <code>URLSession:task:didCompleteWithError:</code>表名数据已经完全收到。</p>
+
+<p>如果在应用中需要在代理方法<code>URLSession:dataTask:didReceiveData:</code>返回后使用数据，代码中有责任将数据以某种方式保存起来。</p>
+
+<p>举个例子，一个web浏览器可能需要当数据一到达时就和之前接受的数据组合在一起开始渲染，它可能会使用一个字典映射任务对象到一个<code>NSMutableData</code>对象以保存返回的结果，然后在那个对象上使用<code>appendData:</code>方法追加最新接收到的数据。</p>
+
+<p>列表1-5展示了如何创建和开始一个数据任务</p>
+
+<p>列表 1-5 数据任务示例</p>
+
+<pre><code>NSURL *url = [NSURL URLWithString:@&quot;http://www.example.com&quot;];
+    NSURLSessionDataTask *dataTask = [self.defaultSession dataTaskWithURL:url];
+    [dataTask resume];
+</code></pre>
+
+<h4 id="toc_10">文件下载</h4>
+
+<p>下载文件和请求获取数据差多。应用中应该实现以下代理方法：</p>
+
+<ul>
+<li><p><code>URLSession:downloadTask:didFinishDownloadingToURL:</code>给应用提供一个保存下载内容的临时文件URL。</p>
+
+<blockquote>
+<p><b>重要：</b>在这个方法返回之前，必须打开一个文件读或者移动这个文件到一个指定的地方。当这个方法返回时，如果原始缓存的路径临时文件依然存在，这个文件会被删除。</p>
+</blockquote></li>
+<li><p><code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:</code>给应用提供下载进度信息。</p></li>
+<li><p><code>URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:</code>告诉应用尝试继续先前下载失败的文件成功了。</p></li>
+<li><p><code>URLSession:task:didCompleteWithError:</code>告诉应用下载失败了。</p></li>
+</ul>
+
+<p>如果在后台会话中安排下载，当应用不运行时下载会继续。如果你在标准或者短暂会话中安排下载，当应用重启后必须开始一个新的下载。</p>
+
+<p>当从服务器传输时，如果应用暂停下载，应用可以调用<code>cancelByProducingResumeData:</code>方法取消任务。然后应用可以传递返回的继续数据给<code>downloadTaskWithResumeData:</code>或者<code>downloadTaskWithResumeData:completionHandler:</code>方法以创建一个新的下载任务继续现前的下载。</p>
+
+<p>如果传输失败，代理<code>URLSession:task:didCompleteWithError:</code>方法传递一个<code>NSError</code>对象调用。如果任务是可以继续的，<code>userInfo</code>字典包含一个<code>NSURLSessionDownloadTaskResumeData</code>键对应的值；应用中可以将返回继续的数据给<code>downloadTaskWithResumeData:</code>或者<code>downloadTaskWithResumeData:completionHandler:</code>方法创建一个新的下载任务以继续下载。</p>
+
+<p>列表1-6演示了下载一个大文件。列表1-7演示了下载任务的代理方法。</p>
+
+<p>列表  1-6 下载任务示例</p>
+
+<pre><code>NSURL *url = [NSURL URLWithString:@&quot;https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/ObjC_classic/FoundationObjC.pdf&quot;];
+    NSURLSessionDownloadTask *downloadTask = [self.backgroundSession downloadTaskWithURL:url];
+    [downloadTask resume];
+ ```
+ 
+ 列表  1-7  下载任务代理方法
+ 
+ 
+
+
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[URL Session编程指南 - 简介]]></title>
+    <link href="http://www.hpmczz.com/14521763773322.html"/>
+    <updated>2016-01-07T22:19:37+08:00</updated>
+    <id>http://www.hpmczz.com/14521763773322.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>之前一直是使用NSURLConnection用得比较多，NSURLSesion是跟随iOS7一起出来的，虽说现在网络请求基本上是使用AFNetworking，但了解下其基本的使用还是有必要的。于是决定翻译下这篇文档，加深自己对这一块的了解。</p>
+</blockquote>
+
+<h4 id="toc_0">关于URL加载系统（URL Loading System）</h4>
+
+<p>这篇指南描述了基础的框架类，这些类可用于跟URLs交互和使用标准互联网协议跟服务器通讯。谈及到的类被称为URL加载系统。</p>
+
+<p>URL加载系统是<br/>
+一些类和协议的集合，你可以在app中使用这些类和协议<br/>
+访问URL引用的内容。<code>NSURL</code>是这个技术的核心，你可以在app使用它来维护它们引用的资源。</p>
+
+<p>作为支撑，Foundation框架提供了一个丰富的类集合，你可以使用这些类加载URL的内容，上传数据到服务器，管理cookie的存储，控制响应缓存，处理证书和在app中使用指定的方法做身份认证，并且可以自定义协议扩展。</p>
+
+<p>URL加载系统支持使用以下协议访问资源：</p>
+
+<ul>
+<li>  文件传输协议（ftp://)</li>
+<li>超文本传输协议（http://)</li>
+<li>加密超文本传输协议（https://)</li>
+<li>本地文件URLs（file:///)</li>
+<li>数据URLs（data://)</li>
+</ul>
+
+<p>显然，使用用户系统设置提供的代理服务器和SOCKS网关也是支持的。</p>
+
+<blockquote>
+<p><b>重要：</b> 作为URL加载系统的附加功能，OSX和iOS提供APIs以打开其它应用中URLs，例如Safri。这些APIs的描述并不在本文档中。</p>
+
+<p>想要了解更多OSX中的启动服务，请阅读<i>Launch Services Programming Guide</i></p>
+
+<p>想要了解更多关于OSX中<code>NSWorkSpace</code>类的<code>openURL:</code>方法，请阅读<i>NSWorkSpace Class Refrence</i></p>
+
+<p>想要了解更多关于iOS中<code>UIApplication</code>类的<code>openURL:</code>方法，请阅读<i>UIApplication Class Refrence</i></p>
+</blockquote>
+
+<h4 id="toc_1">概览</h4>
+
+<p>URL加载系统包含加载URLs的类和一些重要的修改URL加载类行为的帮助类。主要帮助类分为五类：协议支持，认证和证书，cookie存储，配置管理，缓存管理。<br/>
+<img src="media/14521763773322/nsobject_hierarchy_2x.png" alt="nsobject_hierarchy_2x"/></p>
+
+<h4 id="toc_2">URL加载</h4>
+
+<p>URL加载系统中最常用的类允许你的应用从一个URL源获取内容。你可以用多种方式获取类容，取决于应用需求。API版本的选择取决于OS X或iOS上你的应用支持的版本，或者是你想保存数据到文件或只是保存数据到内存块中：</p>
+
+<ul>
+<li>  在iOS7和OS X v10.9之后，<code>NSURLSession</code>是执行URL请求编码时首选的API。</li>
+<li>由于一些软件必须支持先前版本的 OS X， 你可以使用<code>NSURLDowload</code>去下载URL的内容保存到磁盘的文件上。</li>
+<li>由于软件必须支持先前版本的iOS或OS X，你可以使用<code>NSURLConnection</code>去下载URL内容到内存中。稍后如果需要也可以保存内存中的数据到磁盘中。</li>
+</ul>
+
+<p>具体使用哪个方法去取决于你想获取数据是保存到内存还是下载保存到磁盘中。</p>
+
+<h5 id="toc_3">获取数据（内存中）</h5>
+
+<p>有两种获取URL数据的基本方法：</p>
+
+<ul>
+<li>  简单的请求，使用<code>NSURLSession</code>API去直接获取一个<code>NSURL</code>对象的内容，<code>NSData</code>或者磁盘上的文件接收数据。</li>
+<li>复杂的请求－上传数据请求，举个例子－提供一个<code>NSURLRequest</code>对象（或者它的可变子类，<code>NSMutableURLRequest</code>）给<code>NSURLSession</code>或者<code>NSURLConnection</code>。</li>
+</ul>
+
+<p>不管使用哪种方法，获取响应数据有如下两种方法：</p>
+
+<ul>
+<li>  提供一个完成处理回调block。当完成从服务器接收数据时URL加载类将调用这个回调函数。</li>
+<li>提供一个代理。当从源接收数据时会定期的调用URL加载类提供代理方法。如果需要，你需要将接收到的数据追加到一起以组成完整的数据。</li>
+</ul>
+
+<p>对于数据本身而言，URL加载类给代理方法或者回调block提供一个响应对象，这个响应对象封装了请求的元响应头数据，例如MIME类型和响应内容的长度。</p>
+
+<h5 id="toc_4">下载内容到文件</h5>
+
+<p>有两种基础的方法下载URL的内容到文件中：</p>
+
+<ul>
+<li>  简单的请求，使用<code>NSURLSession</code>API去直接获取一个<code>NSURL</code>对象的内容，<code>NSData</code>或者磁盘上的文件接收数据。</li>
+<li>复杂的请求－上传数据请求，举个例子－提供一个<code>NSURLRequest</code>对象（或者它的可变子类，<code>NSMutableURLRequest</code>）给<code>NSURLSession</code>或者<code>NSURLDownload</code>。</li>
+</ul>
+
+<p><code>NSURLSession</code>类相对于<code>NSURLDownload</code>有两个明显的优点：在iOS中可以使用，当程序暂停，终止或者崩溃时可以在后台继续下载。</p>
+
+<blockquote>
+<p><code>NSURLDownload</code>或者<code>NSURLSession</code>初始化的下载实例不会缓存数据。如果你需要缓存结果，需要使用<code>NSURLConnection</code>或者<code>NSURLSession</code>并且将数据写到磁盘中。</p>
+</blockquote>
+
+<h5 id="toc_5">帮助方法</h5>
+
+<p>URL加载系统使用两个辅助类提供附加元数据功能－一个对于请求（<code>NSURLRequest</code>）另一个是服务器响应(<code>NSURLResponse</code>）。</p>
+
+<blockquote>
+<p>当客户端应用使用<code>NSMutableURLRequest</code>的实例初始化一个连接或者下载，对这个请求将执行深拷贝。下载初始化后改变初始化请求没有任何影响。</p>
+</blockquote>
+
+<p>一些协议支持协议内指定的属性。举个例子，HTTP协议给<code>NSURLRequst</code>添加一些方法以返回HTTP请求体，请求头，和传输方法。给<code>NSMutableURLRequest</code>添加一些设置这些值的方法。</p>
+
+<p>文档的后面将做一些详细的介绍。</p>
+
+<h5 id="toc_6">响应元数据</h5>
+
+<p>从服务返回给请求的响应可以看做两部分：元数据描述内容和实际的内容。元数据对于大部分协议封装成<code>NSURLResponse</code>类，包含MIME类型，预估内容长度，文本编码（可编程）和提供相应的URL。<code>NSURLRespnse</code>协议自定的子类可提供额外的元数据。举个例子，<code>NSHTTPURLResponse</code>保存了从web服务器返回的的响应头和响应码。</p>
+
+<blockquote>
+<p><b>重要：</b><code>NSURLResponse</code>对象中仅储存响应元数据。不同的URL加载类通过结束回调函数或代理方法提供响应数据。</p>
+
+<p><code>NSCachedURLResponse</code>实例封装了<code>NSURLResponse</code>对象，URL内容数据，和其它提供给应用的附加信息。在缓存管理中将详细讲解。</p>
+</blockquote>
+
+<p>详细的URL响应对象将在文档中逐步阐述。</p>
+
+<h5 id="toc_7">重定向和其它请求变化</h5>
+
+<p>一些协议，例如HTTP，给服务器提供一个方法告知客户端请求的URL的数据被移动到另一个URL。当发生这种情况时URL加载类会通知代理方法。如果有提供合适代理方法，可以处理是返回错误，还是跟随重定向返回重定向后的响应。</p>
+
+<h5 id="toc_8">认证和证书</h5>
+
+<p>一些服务器严格限制访问特定内容，需要用户提供一类证书－客户端证书，用户名和密码等等以获取访问权限。在web服务器中，限制的内容将组织到一个领域，需要一套凭证以访问。证书也用于决定是否信任其它的方面－评估客户端是否信任服务器。</p>
+
+<p>URL加载系统提供一些类，这些类提供安全证书和领域。你可以为一个请求指定这些证书或者在程序启动时，或者保存在钥匙串中。</p>
+
+<blockquote>
+<p><b>注意:</b>在用户钥匙串中储存的证书在所有的应用中共享。</p>
+</blockquote>
+
+<p><code>NSURLCredential</code>类封装了包含认证信息（举个例子：用户名或密码）和持久化行为。<code>NSURLProtectionSpace</code>类表现为一个指定证书的保护区域。一个保护的空间可以被限制为一个URL，包含一个web服务器的这个领域，或者是一个代理服务器。</p>
+
+<p>一个共享的<code>NSURLCredentialStorage</code>类管理证书存储和提供<code>NSURLCredential</code>对象到对应的<code>NSURLProtectionSpace</code>对象的映射以提供认证。</p>
+
+<p><code>NSURLAuthenticationChallenge</code>类封装了<code>NSURLProtocol</code>所需认证请求的信息：目标证书，所涉及到的保护区域，错误或者响应信息以便协议用于决定是否需要认证，认证所尝试的次数。<code>NSURLAuthenticationChallenge</code>实例也指定初始化认证的对象。初始化对象，也就是<code>sender</code>必须遵循<code>NSURLAuthenticationChallengeSender</code>协议。</p>
+
+<p><code>NSURLAuthenticationChallenge</code>实例用于通知<code>NSURLProtocol</code>子类需要认证。也提供了<code>NSURLConnection</code>和<code>NSURLDowload</code>代理方法以便自定义认证处理。</p>
+
+<h4 id="toc_9">缓存管理</h4>
+
+<p>URL加载系统提供一个复合的内存和磁盘缓存以减少应用对网络的依赖，并且能够快速切换之前缓存的响应。缓存存储对于每个应用是独立的。缓存是通过<code>NSURLConnection</code>指定缓存策略给<code>NSURLRequest</code>对象设置的。</p>
+
+<p><code>NSURLCache</code>类提供方法配置缓存大小和缓存磁盘的路径。也提供了管理<code>NSCachedURLResponse</code>对象集合方法，这些对象包含了缓存的响应。</p>
+
+<p><code>NSCachedURLResponse</code>对象封装了<code>NSURLResponse</code>对象和URL内容数据。<code>NSCachedURLResponse</code>也提供了一个用户信息的字典，这个字典可以缓存自定义的数据。</p>
+
+<p>并不是所有的协议都实现支持响应缓存。目前为止只有<code>http</code>和<code>https</code>请求能够缓存。</p>
+
+<p><code>NSURLConnection</code>对象通过实现<code>connection:willCacheResponse:</code>代理方法可以控制响应是否缓存并且是否只是缓存到内存中。</p>
+
+<h4 id="toc_10">Cookie 存储</h4>
+
+<p>由于HTTP协议是无状态的，客户端在URL请求时经常使用cookie提供数据持久化。URL加载系统提供接口创建和管理缓存，发送网络请求时把cookie作为请求的一部分，并且遇到服务器响应设置cookie时接收这些cookie。</p>
+
+<p>OS X和iOS使用<code>NSHTTPCookieStorage</code>类，这个类提供管理<code>NSHTTPCookie</code>对象的集合的接口。在OS X中，cookie存储在所有的应用中可以访问；在iOS上，cookie不能在应用中共享。</p>
+
+<h4 id="toc_11">协议支持</h4>
+
+<p>URL加载系统原生支持<code>http</code>，<code>https</code>，<code>file</code>，<code>ftp</code>和<code>data</code>协议。然而，URL加载系统也允许你的应用自定义类以支持其它应用层网络协议。你可以在URL请求和URL响应对象中添加协议中自定义的属性。</p>
+
+<p>原文地址：<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165-BCICJDHA">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165-BCICJDHA</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UIButton Insets相关]]></title>
+    <link href="http://www.hpmczz.com/14520027761309.html"/>
+    <updated>2016-01-05T22:06:16+08:00</updated>
+    <id>http://www.hpmczz.com/14520027761309.html</id>
+    <content type="html"><![CDATA[
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mongoose文档翻译 － Schemas（二）]]></title>
+    <link href="http://www.hpmczz.com/14520027518071.html"/>
+    <updated>2016-01-05T22:05:51+08:00</updated>
+    <id>http://www.hpmczz.com/14520027518071.html</id>
+    <content type="html"><![CDATA[
+<p>接着之前第一篇继续了</p>
+
+<h4 id="toc_0">选项</h4>
+
+<p>Schemas有少许可配置的选项可以直接传递给构造函数或者set函数：</p>
+
+<pre><code>new Schema({...}, options);
+
+//或者
+
+var schema = new Schema({...});
+schema.set(option, value);
+</code></pre>
+
+<p>可用的选项：</p>
+
+<ul>
+<li>  <a href="#autoIndex">autoIndex</a></li>
+<li> <a href="#capped">capped</a></li>
+<li> <a href="#collection">collection</a></li>
+<li> <a href="#emitIndexErrors">emitIndexErrors</a></li>
+<li> <a href="#id">id</a></li>
+<li> <a href="#_id">_id</a></li>
+<li> <a href="#minimize">minimize</a></li>
+<li> <a href="#read">read</a></li>
+<li> <a href="#safe">safe</a></li>
+<li> <a href="#shardKey">shardKey</a></li>
+<li> <a href="#strict">strict</a></li>
+<li> <a href="#toJSON">toJSON</a></li>
+<li> <a href="#toObject">toObject</a></li>
+<li> <a href="#typeKey">typeKey</a></li>
+<li> <a href="#validateBeforeSave">validateBeforeSave</a></li>
+<li> <a href="#versionKey">versionKey</a></li>
+<li> <a href="#skipVersioning">skipVersioning</a></li>
+<li> <a href="#timestamps">timestamps</a></li>
+</ul>
+
+<h5 id="autoIndex">options: autoIndex</h5>
+
+<p>在程序开始的时候，Mongoose为在Schema中定义的每一个索引发送一个<code>ensureIndex</code>的命令。在Mongoose v3版本中，indexes在<code>backgound</code>中默认创建。如果你想要禁用自动创建的功能并且你想在索引创建的时候手动处理，设置Schema的<code>autoIndex</code>选项为false，并且在<code>model</code>中使用<code>ensureIndexes</code>方法。</p>
+
+<pre><code>var schema = new Schema({...}, {autoIndex: false});
+var Clock = mongoose.model(&#39;Clock&#39;, schema);
+Clock.ensureIndexes(callback);
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[mongoose文档翻译 － Schemas（一）]]></title>
@@ -59,7 +2163,7 @@ var blogSchema = new Schema({
 <li>Boolean</li>
 <li>Mixed</li>
 <li>ObjectId</li>
-<li>Array</li>
+<li>Arra</li>
 </ul>
 
 <p>更多请参考<a href="#instance_method">这里</a>。</p>
@@ -226,415 +2330,6 @@ console.log(data);      //输出：/path/abc/hi/fdfd
 var data = path.join(&#39;///you&#39;, &#39;//are&#39;, &#39;/so&#39;, &#39;beautiful&#39;);
 console.log(data); //输出：/you/are/so/beautiful
 </code></pre>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript中对象的创建方法]]></title>
-    <link href="http://www.hpmczz.com/14505917477642.html"/>
-    <updated>2015-12-20T14:09:07+08:00</updated>
-    <id>http://www.hpmczz.com/14505917477642.html</id>
-    <content type="html"><![CDATA[
-<h4 id="toc_0">工厂模式</h4>
-
-<p>JavaScript中无法像其它语言中一样创建类，于是衍生出了一种实用函数封装的方法创建类，如下面的例子所示：</p>
-
-<pre><code>function Person(name, age, gender){
-  var o = new Object();
-  o.name = name;
-  o.age = age;
-  o.gender = gender;
-
-  o.sayName = function(){
-    console.log(this.name);
-  }
-
-  return o;
-}
-
-var p1 = Person(&quot;steven&quot;, 29, &quot;male&quot;);
-var p2 = Person(&quot;mary&quot;, 27, &quot;female&quot;);
-</code></pre>
-
-<p>上面的例子中根据接受的参数创建了对应信息的对象。这种方式可以通过多次调用创建对象，但是对象的类型都是Object类型，不能识别对象。</p>
-
-<h4 id="toc_1">构造函数模式</h4>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[AssetsLibrary使用]]></title>
-    <link href="http://www.hpmczz.com/14505840078720.html"/>
-    <updated>2015-12-20T12:00:07+08:00</updated>
-    <id>http://www.hpmczz.com/14505840078720.html</id>
-    <content type="html"><![CDATA[
-<h4 id="toc_0">相关类名</h4>
-
-<p>可以理解如下：<br/>
-<ul><br/>
-<li>ALAssetsLibrary是iOS系统中的资料库，使用它可以访问资料库的资源，保存资源到资料库中。</li><br/>
-<li>ALAssetsGroup是资料库中的每一个资源集，可以通过它访问资源集里面的文件，并且能够添加文件到资料库中。</li><br/>
-<li>ALAsset是资源集中的资源文件</li><br/>
-</ul></p>
-
-<h4 id="toc_1">访问资源库代码</h4>
-
-<p>下面的代码片段初始化资源库文件和存放资源集的数组，然后枚举资源库中的资源集，将资源集添加到数组中，以便后面的使用。这里有两个回调block，一个用于枚举资源集的回调，一个用于在访问资源库发生错误时的回调。</p>
-
-<pre><code>//初始化ALAssetsLibrary对象
-if (_assetsLibrary == nil) {
-        _assetsLibrary = [[ALAssetsLibrary alloc] init];
-}
-if (_groups == nil) {
-        _groups = [[NSMutableArray alloc] init];
-} else {
-      [_groups removeAllObjects];
-}
-
-//构造失败回调
-ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error){
-     NSString *errorMessage = nil;
-      switch ([error code]) {
-        case ALAssetsLibraryAccessUserDeniedError:
-        case ALAssetsLibraryAccessGloballyDeniedError:
-            errorMessage = @&quot;The user has declined access to it.&quot;;
-            break;
-        default:
-            errorMessage = @&quot;Reason unkown.&quot;;
-            break;
-    }
-    NSLog(@&quot;%@&quot;, errorMessage);
-};
-
-//构造枚举资源文件回调（可以开启一个线程后台枚举资源文件后，再在主线程刷新界面)
-ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop){
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-        [group setAssetsFilter:onlyPhotosFilter];
-        if ([group numberOfAssets]) {
-            [_groups addObject:group];
-        }
-        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop){
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-        [group setAssetsFilter:onlyPhotosFilter];
-        if ([group numberOfAssets]) {
-            [_groups addObject:group];
-        }
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    });
-    
-};
-    
-NSUInteger groupTypes = ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos;
-[_assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
-    });
-    
-};
-    
-NSUInteger groupTypes = ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos;
-[_assetsLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
-
-</code></pre>
-
-<h4 id="toc_2">获取资源文件</h4>
-
-<p>下面的代码片段枚举资源集中的资源文件，大致的方式和枚举资源库中的资源集类似，枚举的每个资源文件是一个ALAsset对象，然后将资源文件添加哦到数组中，以便后面代码的使用。</p>
-
-<pre><code>if (!_assets) {
-     _assets = [[NSMutableArray alloc] init];
-} else {
-    [_assets removeAllObjects];
-}
-    
-    //获取资源集中的资源文件,添加到数组中
-ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop){
-    if (result) {
-        [_assets addObject:result];
-    }
-};
-    
-ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-[_assetsGroup setAssetsFilter:onlyPhotosFilter];
-[_assetsGroup enumerateAssetsUsingBlock:assetsEnumerationBlock];
-</code></pre>
-
-<h4 id="toc_3">实现的效果如下</h4>
-
-<p>简单自定义了一个简单的相册，你也可以使用其他的展现方式来展现相册的内容，包括多张图片同时选择等功能</p>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20151003/assets_library_study_image.png">
-<source src="http://www.hpmczz.com/images/20151003/assets_library_study.mov" type="video/mov" />
-<source src="http://www.hpmczz.com/images/20151003/assets_library_study.ogg" type="video/ogg" />
-</video>
-<br/>
-
-<p><a href="http://www.hpmczz.com/images/20151003/MyImagPicker.zip">完整代码下载地址</a></p>
-
-<p>参考：<a href="https://developer.apple.com/library/ios/samplecode/MyImagePicker/Introduction/Intro.html">https://developer.apple.com/library/ios/samplecode/MyImagePicker/Introduction/Intro.html</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Objective-C单例]]></title>
-    <link href="http://www.hpmczz.com/14505835784481.html"/>
-    <updated>2015-12-20T11:52:58+08:00</updated>
-    <id>http://www.hpmczz.com/14505835784481.html</id>
-    <content type="html"><![CDATA[
-<h4 id="toc_0">遇到的问题</h4>
-
-<p>在项目中我写单例一般是这么写的：</p>
-
-<pre><code>@implementation Singleton
-
-static Singleton *_sharedInstace = nil;
-
-+ (instancetype)sharedInstance{
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-        _sharedInstace = [[Singleton alloc] init];
-    });
-    return _sharedInstace;
-}
-
-- (instancetype)sharedInstance{
-    return [[self class] sharedInstance];
-}   
-</code></pre>
-
-<p>发现的问题：<br/>
-<ul><br/>
-<li>由于没有实现NSCopying协议，对单例子对象调用<code>copy</code>时候，程序崩溃。</li><br/>
-<li>调用<code>alloc</code>时产生了一个新的对象</li><br/>
-</ul><br/>
-如果你已经知道这些潜在的问题，在编写程序的时候稍加注意，这些可能不是问题，但是总是有些奇葩的事情会发生，为了预防这些事情发生时导致的问题，我还是将单例修改了下，更正上述问题的代码如下：</p>
-
-<pre><code>+ (instancetype)sharedInstance{
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-        _sharedInstace = [[Singleton alloc] init];
-    });
-    return _sharedInstace;
-}
-
-- (instancetype)sharedInstance{
-    return [[self class] sharedInstance];
-}   
-- (instancetype)copyWithZone:(NSZone *)zone{
-    return [self sharedInstance];
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone{
-    if (!_sharedInstace) {
-        _sharedInstace = [[super allocWithZone:zone] init];
-    }
-    return _sharedInstace;
-}
-</code></pre>
-
-<p>完整的代码<a href="http://www.hpmczz.com/images/20150516/SingletonDemo.zip">下载地址</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Objc内存管理属性修饰符号（一）]]></title>
-    <link href="http://www.hpmczz.com/14505837375542.html"/>
-    <updated>2015-12-20T11:55:37+08:00</updated>
-    <id>http://www.hpmczz.com/14505837375542.html</id>
-    <content type="html"><![CDATA[
-<p>项目中设置<code>Objective－C Automatic Reference Counting</code>为YES后，项目将开启自动引用计数管理，编译器将帮我们管理引用计数；当然我们也可以对个别文件进行单独设置，对某个文件可以设置<code>-fno-objc-arc</code>后不使用ARC（自动引用计数管理）。在MRC（手动引用计数管理），我们通过给变量发送<code>retainCount</code>消息，得到变量的引用计数；在ARC中，如何能获取变量的引用计数呢?</p>
-
-<h4 id="toc_0">ARC下面打印引用计数</h4>
-
-<h5 id="toc_1">第一种方式</h5>
-
-<pre><code>NSArray *arr = [[NSArray alloc ] initWithObjects:@&quot;hello&quot;,@&quot;world&quot; ,nil];
-CFArrayRef *cfArr = (__bridge CFArrayRef)arr;
-NSLog(@&quot;%ld&quot;, CFGetRetainCount(cfArr));
-</code></pre>
-
-<h5 id="toc_2">第二种方式</h5>
-
-<pre><code>id  obj = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
-NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
-</code></pre>
-
-<p><p>这种方法请在使用函数前<code>extern uintptr_t <u>objc</u>rootRetainCount(id obj)</code>加入这段代码。</pi></p>
-
-<p>突然写了一段代码，如下（ARC开启的情况下）：</p>
-
-<pre><code>id  obj = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
-NSLog(@&quot;retain count = %ld&quot;, _objc_rootRetainCount(obj));
-</code></pre>
-
-<p>此时的输出是2，那么为什么是2呢？我的想法是<code>arrayWithObjects</code>调用返回的对象是<code>autorelease</code>，而这个对象是需要添加到<code>autoreleasePool</code>中，加到这个pool 中导致引用计数+1，是这样的么？接着把这段代码在MRC下面运行，得到的1，有点吃惊，同样的代码为啥是1；在MRC中运行下面的代码：</p>
-
-<pre><code>id obj = [[[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil] autorelease];
-NSLog(@&quot;retain count: %ld&quot;, _objc_rootRetainCount(obj));
-</code></pre>
-
-<p>运行的结果是1。MRC情况下的两段代码基本上是等同的，那么我们对比这三段代码，真正的原因就浮出水面了。其实和<code><strong>strong</code>有关系的，ARC下变量默认是<code></strong>strong</code>的，会持有对象，引用计数+1，看看下面的代码就知道了</p>
-
-<pre><code>//MRC 和 ARC下面分别执行
-id obj = [[NSArray alloc] initWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
-NSLog(@&quot;%p %ld&quot;, obj, _objc_rootRetainCount(obj));
-id obj1 = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
-NSLog(@&quot;%p %ld&quot;, obj1, _objc_rootRetainCount(obj1));
-</code></pre>
-
-<p>MRC执行结果：</p>
-
-<pre><code>2015-06-12 18:28:40.904 objc-runtime[2206:106079] 0x100111c60 1
-2015-06-12 18:28:40.905 objc-runtime[2206:106079] 0x100200160 1
-</code></pre>
-
-<p>ARC执行结果：</p>
-
-<pre><code>2015-06-12 18:27:53.028 objc-runtime[2194:105732] 0x100111c80 1
-2015-06-12 18:27:53.029 objc-runtime[2194:105732] 0x100300100 2
-</code></pre>
-
-<p>内存思考方式：<br/>
-<ul><br/>
-<li>自己生成的对象(new/alloc/copy/mutableCopy)，自己所持有</li><br/>
-<li>非自己生成的对象，自己也能持有</li><br/>
-<li>自己持有的对象不需要时释放</li><br/>
-<li>非自己持有的对象无法释放</li><br/>
-</ul><br/>
-上面的内存管理思考方式引用于<q>Objective-C高级编程iOS与OSX多线程和内存管理</q>。前段中ARC中的代码输出2也就不难想象了，就目前的了解和代码的测试结果来看，对于上面现象的解释看起来是符合的，如果你有不同的一些看看，欢迎直接回复做进一步的探讨。</p>
-
-<h4 id="toc_3">一些现象</h4>
-
-<p>第一段代码，先看下列代码:</p>
-
-<pre><code>NSArray *arr = [NSArray arrayWithObjects:@&quot;hello&quot;, @&quot;world&quot;, nil];
-printf(&quot;arr: %ld\n&quot;, _objc_rootRetainCount(arr));
-CFArrayRef cfarr = (__bridge CFArrayRef)arr;
-printf(&quot;arr: %ld\n&quot;,CFGetRetainCount(cfarr));
-{% endhighlight %}
-输出如下:
-
-</code></pre>
-
-<p>arr:2<br/>
-arr:2<br/>
-```</p>
-
-<p>第二段代码，先看下代码：</p>
-
-<pre><code> NSString *str = [NSString stringWithFormat:@&quot;%@, this is some test.&quot;, @&quot;1234568337&quot;];
-CFStringRef cfStr = (__bridge CFStringRef)str;
-printf(&quot;str: %ld\n&quot;, CFGetRetainCount(cfStr));
-printf(&quot;str: %ld\n&quot;, _objc_rootRetainCount(str));
-</code></pre>
-
-<p>输出如下:</p>
-
-<pre><code>str: 2
-str: 1
-</code></pre>
-
-<p>以上代码均运行在ARC环境下，这两段代码中不同之处是将<code>NSString</code>替换成<code>NSArray</code>，可以看得出<code>NSString</code>使用<code><u>objc</u>rootRetainCount</code>获取引用计数的时候不太一致，这是我们需要注意的地方。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableView中Cell重用的问题]]></title>
-    <link href="http://www.hpmczz.com/14505831179769.html"/>
-    <updated>2015-12-20T11:45:17+08:00</updated>
-    <id>http://www.hpmczz.com/14505831179769.html</id>
-    <content type="html"><![CDATA[
-<h4 id="toc_0">遇到的坑</h4>
-
-<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
-
-<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @&quot;cell&quot;;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor redColor];
-        }else if(indexPath.row == 1){
-            cell.backgroundColor = [UIColor cyanColor];
-        }else if(indexPath.row == 2){
-            cell.backgroundColor = [UIColor blueColor];
-        }else{
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        return cell;
-        
-    }else {
-        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
-    }
-    return cell;
-}
-</code></pre>
-
-<p>上面代码问题很明显，拖动显示如下<br/>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
-
-<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
-
-<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-参考下面的代码：</p>
-
-<pre><code>- (void)_initSubviews{
-    
-    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
-    _msgLb.font = MSGLB_FONT;
-    _msgLb.numberOfLines = 0;
-    [self.contentView addSubview:_msgLb];
-    
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgView.backgroundColor  = [UIColor grayColor];
-    [self.contentView addSubview:_imgView];
-}
-
-- (void)_relayoutSubviews{
-    CGFloat width = self.st_width - 2 * K_PADDING;
-    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
-    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
-    
-    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
-}
-
-- (void)layoutSubviews{
-//    [super layoutSubviews];
-    [self _relayoutSubviews];
-}
-
-- (void)setModel:(id)model{
-    if (model) {
-        _model = model;
-        
-        Message *msg = _model;
-        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
-        [_imgView sd_setImageWithURL:imgUrl];
-        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
-        _msgLb.text = mesg;
-        
-        [self setNeedsLayout];
-    }
-}
-</code></pre>
-
-<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
-上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
-<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
 
 ]]></content>
   </entry>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  UITableView中Cell重用的问题 - My Notebooks
+  模版 - My Notebooks
   
   </title>
   
@@ -105,14 +105,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>UITableView中Cell重用的问题</h1>
+          <h1>模版</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2015/3/20</span>
+          <span class="date">2016/4/15</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS_Development.html'>iOS_Development</a></span>
+              <span class="posted-in"><a href='AngularJS.html'>AngularJS_1.x</a></span>
            
          
           <span class="comments">
@@ -125,93 +125,39 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <h4 id="toc_0">遇到的坑</h4>
+      <p>在Angular中，模版是包含Angular指定元素和属性的HTML。用户在浏览器中看到的是Angular结合实体和控制器的信息来动态地渲染的视图。</p>
 
-<p>1.先看下面的代码（头三个cell的颜色分别为red，cyan，blue，其他的为white）</p>
+<p>你可以使用的Angular元素和属性分类如下：</p>
 
-<pre><code>- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @&quot;cell&quot;;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor redColor];
-        }else if(indexPath.row == 1){
-            cell.backgroundColor = [UIColor cyanColor];
-        }else if(indexPath.row == 2){
-            cell.backgroundColor = [UIColor blueColor];
-        }else{
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        return cell;
-        
-    }else {
-        NSLog(@&quot;开始复用：%ld&quot;,indexPath.row);
-    }
-    return cell;
-}
+<ul>
+    <li><a href="angular_dev_guide_directive">指令</a> － 一个已经存在DOM元素的属性或者一个可重用的DOM组件。</li>
+    <li><a href="angular_dev_guide_markup">标记</a> － 内置的Angular标记采用双花括号表示法 {{}} 给元素绑定表达式</li>
+    <li><a href="angular_dev_guide_filter">过滤器</a> － 格式化数据</li>
+    <li><a href="angular_dev_guide_form_control">表单控制</a> － 验证用户输入</li> 
+</ul>
+
+<p>下面的代码展示了指令和花括号表达式绑定的模版：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; ng-app&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src=&quot;http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-controller=&quot;MyController&quot;&gt;
+
+&lt;input ng-model=&quot;foo&quot; value=&quot;bar&quot;&gt;
+&lt;button ng-click=&quot;changeFoo()&quot;&gt;{{ buttonText }}&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
-<p>上面代码问题很明显，拖动显示如下<br/>
-<video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_prev_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/table_problem_with_reuse.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-<p>代码中只有初始化<code>cell</code>的时候才改变了<code>cell</code>的背景色，在复用的时候没有改变<code>cell</code>的背景色，导致<code>cell</code>在移动过程复用出现的一些异常情况。改变背景色只是抽象出一个例子，在我们平时编写代码的时候可能出现，在初始化<code>cell</code>的时候给cell关联一个<code>model</code>，导致复用加载<code>cell</code>的时候出现一些异常，当出现<code>cell</code>内容重复，可以首先检查下初始化<code>cell</code>的代码。</p>上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewReuse.zip">下载链接</a>。</p>
+<p>在这个简单的应用中，这个模版包含HTML，CSS和Angular指令，都在一个HTML文件中（通常是<code>index.html</code>)。</p>
 
-<p>2.在tableview加载过程中出现一些奇怪的现象（如<code>cell</code>高度是对的，分割线位置不对，<code>cell</code>内容混乱等情况），可以看看下面视频中出现的问题：</p>
-
-<p><video controls="" width="320px" preload="none" autoplay="autoplay" poster="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_pre_img.png"><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.mov" type="video/mov" /><br/>
-<source src="http://www.hpmczz.com/images/20150320/tableview_reuse_problem_layoutsubviews.ogg" type="video/ogg" /><br/>
-</video><br/>
-<br/><br/>
-参考下面的代码：</p>
-
-<pre><code>- (void)_initSubviews{
-    
-    _msgLb = [[UILabel alloc] initWithFrame:CGRectZero];
-    _msgLb.font = MSGLB_FONT;
-    _msgLb.numberOfLines = 0;
-    [self.contentView addSubview:_msgLb];
-    
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgView.backgroundColor  = [UIColor grayColor];
-    [self.contentView addSubview:_imgView];
-}
-
-- (void)_relayoutSubviews{
-    CGFloat width = self.st_width - 2 * K_PADDING;
-    CGFloat height = [[self class] getHeightWithContent:_msgLb.text withWidth:width withFont:_msgLb.font];
-    _msgLb.frame = CGRectMake(K_PADDING, K_PADDING, width, height);
-    
-    _imgView.frame = CGRectMake(K_PADDING, _msgLb.st_bottom+K_PADDING, IMG_WIDTH, IMG_HEIGHT);
-}
-
-- (void)layoutSubviews{
-//    [super layoutSubviews];
-    [self _relayoutSubviews];
-}
-
-- (void)setModel:(id)model{
-    if (model) {
-        _model = model;
-        
-        Message *msg = _model;
-        NSURL *imgUrl = [NSURL URLWithString:msg.msgUrl];
-        [_imgView sd_setImageWithURL:imgUrl];
-        NSString *mesg = [NSString stringWithFormat:@&quot;%@&quot;,msg.msgText];
-        _msgLb.text = mesg;
-        
-        [self setNeedsLayout];
-    }
-}
-</code></pre>
-
-<p>主要的原因是没有去调用<code>[super layoutSubviews];</code>。打开注释里面的方法即可显示正常，在我们使用tableview的时候，特别是代码创建<code>UITableViewCell</code>可能出现一些复用导致的奇怪的现象，上面的两点可以解决一些常见的问题或者衍生出来的问题。</p>
-上面例子中的代码的<a href="http://www.hpmczz.com/resource/20150320/TableViewProblems.zip">下载链接</a>。
-<p>上面两种问题在用代码编写界面时候由于不太注意，导致容易出现问题，在使用Storyboard或者xib由于不用自己初始化<code>cell</code>，出现错误的几率会少一些。在遇到类似问题的时候不妨检查下自己的代码，分析下类似的问题。</p>
+<p>在复杂的应用中，你可以使用&quot;局部模版&quot;在一个主页面显示许多视图 － 单独的HTML文件，你可以使用<a href="./angular_api_ngview.html">ngView</a>指令通过配置<a href="./angular_api_route.html">$route</a>服务时加载局部模版。<br/>
+在<a href="phonecat_8.html">教程</a>第八和第九步使用了这个技术。</p>
 
       </div>
 
@@ -219,13 +165,13 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14505837375542.html" 
-          title="Previous Post: Objc内存管理属性修饰符号（一）">&laquo; Objc内存管理属性修饰符号（一）</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14607031159401.html" 
+          title="Next Post: 概览">概览 &raquo;</a>
       
       </p>
         </div>
